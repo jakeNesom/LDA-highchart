@@ -24,7 +24,7 @@ import { ChartModule } from 'angular2-highcharts';
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
-   // ChartModule.forRoot(require('highcharts'))
+    ChartModule.forRoot(require('highcharts'))
     ],
   declarations: [ 
     AppComponent,

@@ -6,7 +6,6 @@
     "web.start": "webpack-dev-server --inline --progress --port 8080",
     "web.test": "karma start",
     "web.build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
-
     "build": "tsc -p src/",
     "build:watch": "tsc -p src/ -w",
     "build:e2e": "tsc -p e2e/",
@@ -67,7 +66,6 @@
     "rimraf": "^2.5.4",
     "@types/node": "^6.0.46",
     "@types/jasmine": "2.5.36",
-
     "angular2-template-loader": "^0.6.0",
     "awesome-typescript-loader": "^3.0.4",
     "css-loader": "^0.26.1",
@@ -80,12 +78,9 @@
     "null-loader": "^0.1.1",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.1",
-    
     "webpack": "2.2.1",
     "webpack-dev-server": "2.4.1",
     "webpack-merge": "^3.0.0"
-
-
   },
   "repository": {}
 }

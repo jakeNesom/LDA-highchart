@@ -107,7 +107,14 @@ export class SetChart {
   
 
   // creating instance of LoggerService
-  constructor (private loggerService: LoggerService, private sanitizer: DomSanitizer, private _applicationRef: ApplicationRef) {}
+  constructor (private loggerService: LoggerService, 
+    private sanitizer: DomSanitizer, 
+    private _applicationRef: ApplicationRef) {
+
+      this.options = {
+        
+      }
+    }
  
  // on init - run get service and initially set the data
   ngOnInit(): void {
