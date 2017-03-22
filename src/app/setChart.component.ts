@@ -5,7 +5,7 @@ import { ApplicationRef } from '@angular/core';
 
 import { LoggerService } from './loggerdata.service';
 import { Dataset } from './definitions/dataset';
-import { BaseChartDirective, ChartsModule  } from 'ng2-charts';
+
 import { DisplayComponent } from './display.component';
 
 //ng on changes
@@ -13,13 +13,17 @@ import { DisplayComponent } from './display.component';
 
 @Component({
   selector: 'setChart',
+  styles: [`
+      chart {
+        display:block;
+      }
+  `],
   templateUrl: 'app/views/setchart.html',  
 })
 
 export class SetChart {
  
-  @ViewChild(BaseChartDirective)
-  public chart: BaseChartDirective;
+ 
 
   // the @Inputs take variables passed from the parent component via the parent view where the current component view
   // tags are written
@@ -106,16 +110,63 @@ export class SetChart {
   
   
 
-  // creating instance of LoggerService
+  // creating instance of LoggerService, initializing the high-charts options
   constructor (private loggerService: LoggerService, 
     private sanitizer: DomSanitizer, 
     private _applicationRef: ApplicationRef) {
 
+      
       this.options = {
-        
-      }
+        xAxis: {
+          categories: ["Node A", "Node B", "Node C", "Node D"]
+        },
+        chart: { type: 'column' },
+        title: { text : ''},
+        series: [
+          { type: 'column',
+            name: 'Client A',
+            data: [1, 2, 3, 2] },
+          { type: 'column',
+            name: 'Client B',
+            data: [0, 2, 4, 1] },
+          { type: 'column',
+            name: 'Client C',
+            data: [4, 1, 1, 3] },
+        ]
+      };
+      this.oldOptions = this.options;
+        //setInterval( () => this.chart.series[0].addPoint(Math.random()*10), 1000);
+    }
+
+    chart : Object;
+    options: Object;
+    oldOptions: Object;
+    private changeFlag = false;
+    saveInstance(chartInstance:any) {
+      this.chart = chartInstance;
     }
  
+    newOptions: Object = {
+        xAxis: {
+          categories: ["Node A", "Node B", "Node C"]
+        },
+        chart: { type: 'column' },
+        title: { text : ''},
+        series: [
+          { type: 'column',
+            name: 'Client A',
+            data: [1, 2, 3] },
+          { type: 'column',
+            name: 'Client B',
+            data: [0, 2, 4] },
+          { type: 'column',
+            name: 'Client C',
+            data: [4, 1, 1] },
+          { type: 'column',
+            name: 'Client D',
+            data: [1,2,4]}
+        ]
+      };
  // on init - run get service and initially set the data
   ngOnInit(): void {
 
@@ -143,6 +194,20 @@ export class SetChart {
     }
     
 
+  }
+
+  public updateData () {
+     
+     if(this.changeFlag == false)
+     {
+       this.chart.update(this.newOptions);
+       this.changeFlag = true;
+     }
+     else
+     {
+       this.chart.update(this.options);
+       this.changeFlag = false;
+     }   
   }
 
   private setData(incomingData?:any, filter?:any ):void {

@@ -12,11 +12,10 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var core_2 = require('@angular/core');
 var loggerdata_service_1 = require('./loggerdata.service');
-var ng2_charts_1 = require('ng2-charts');
 //ng on changes
 //http://stackoverflow.com/questions/35823698/how-to-make-ngonchanges-work-in-angular2
 var SetChart = (function () {
-    // creating instance of LoggerService
+    // creating instance of LoggerService, initializing the high-charts options
     function SetChart(loggerService, sanitizer, _applicationRef) {
         this.loggerService = loggerService;
         this.sanitizer = sanitizer;
@@ -47,6 +46,48 @@ var SetChart = (function () {
             { data: ["5", "2"], label: "Client E" },
             { data: ["5", "2"], label: "Client F" },
         ];
+        this.changeFlag = false;
+        this.newOptions = {
+            xAxis: {
+                categories: ["Node A", "Node B", "Node C"]
+            },
+            chart: { type: 'column' },
+            title: { text: '' },
+            series: [
+                { type: 'column',
+                    name: 'Client A',
+                    data: [1, 2, 3] },
+                { type: 'column',
+                    name: 'Client B',
+                    data: [0, 2, 4] },
+                { type: 'column',
+                    name: 'Client C',
+                    data: [4, 1, 1] },
+                { type: 'column',
+                    name: 'Client D',
+                    data: [1, 2, 4] }
+            ]
+        };
+        this.options = {
+            xAxis: {
+                categories: ["Node A", "Node B", "Node C", "Node D"]
+            },
+            chart: { type: 'column' },
+            title: { text: '' },
+            series: [
+                { type: 'column',
+                    name: 'Client A',
+                    data: [1, 2, 3, 2] },
+                { type: 'column',
+                    name: 'Client B',
+                    data: [0, 2, 4, 1] },
+                { type: 'column',
+                    name: 'Client C',
+                    data: [4, 1, 1, 3] },
+            ]
+        };
+        this.oldOptions = this.options;
+        //setInterval( () => this.chart.series[0].addPoint(Math.random()*10), 1000);
     }
     SetChart.prototype.ngOnChanges = function (changes) {
         var _this = this;
@@ -71,6 +112,9 @@ var SetChart = (function () {
             this.newDataListening = this.activelyLookForDataC;
         }
     };
+    SetChart.prototype.saveInstance = function (chartInstance) {
+        this.chart = chartInstance;
+    };
     // on init - run get service and initially set the data
     SetChart.prototype.ngOnInit = function () {
         // this.loggerService.getLoggerData()
@@ -89,6 +133,16 @@ var SetChart = (function () {
                     this.dataset = newData;
                 }
             }, 8000);
+        }
+    };
+    SetChart.prototype.updateData = function () {
+        if (this.changeFlag == false) {
+            this.chart.update(this.newOptions);
+            this.changeFlag = true;
+        }
+        else {
+            this.chart.update(this.options);
+            this.changeFlag = false;
         }
     };
     SetChart.prototype.setData = function (incomingData, filter) {
@@ -306,10 +360,6 @@ var SetChart = (function () {
          */
     };
     __decorate([
-        core_1.ViewChild(ng2_charts_1.BaseChartDirective), 
-        __metadata('design:type', ng2_charts_1.BaseChartDirective)
-    ], SetChart.prototype, "chart", void 0);
-    __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
     ], SetChart.prototype, "currentClientC", void 0);
@@ -328,6 +378,7 @@ var SetChart = (function () {
     SetChart = __decorate([
         core_1.Component({
             selector: 'setChart',
+            styles: ["\n      chart {\n        display:block;\n      }\n  "],
             templateUrl: 'app/views/setchart.html',
         }), 
         __metadata('design:paramtypes', [loggerdata_service_1.LoggerService, platform_browser_1.DomSanitizer, core_2.ApplicationRef])

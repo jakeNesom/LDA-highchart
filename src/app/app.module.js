@@ -21,6 +21,7 @@ var setChart_component_1 = require("./setChart.component");
 var display_component_1 = require("./display.component");
 var loggerdata_service_1 = require("./loggerdata.service");
 var chart2_component_1 = require('./chart2.component');
+var angular2_highcharts_1 = require('angular2-highcharts');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -32,6 +33,7 @@ var AppModule = (function () {
                 forms_1.FormsModule,
                 http_1.HttpModule,
                 angular_in_memory_web_api_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService),
+                angular2_highcharts_1.ChartModule.forRoot(require('highcharts'))
             ],
             declarations: [
                 app_component_1.AppComponent,
