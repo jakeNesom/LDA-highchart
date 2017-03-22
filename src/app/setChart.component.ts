@@ -77,37 +77,6 @@ export class SetChart {
   private newDataListening: boolean = false;
   // variable toggles activelyLook() to stop the repeating get requests
   
-
-  
-  
-  /** Bar Chart Variables  */
-
-  public barChartOptions:any = {
-    scaleShowVerticalLines: false,
-    responsive: true
-  };
-
-  public oldBarChartLabeles:string[];
-  public barChartLabels:string[] = ['NodeA', "NodeB", "NodeC"];
-
-  public barChartType:string = 'bar';
-  public barChartLegend:boolean = true;
- 
-  public oldBarChartData:any[];
-
-  public barChartData:any[] = [
-    {data: ["3", "2"], label:"Client A"},
-    {data: ["2", "1"], label:"Client B"},
-    {data: ["5", "2"], label:"Client C"},
-    {data: ["5", "2"], label:"Client D"},
-    {data: ["5", "2"], label:"Client E"},
-    {data: ["5", "2"], label:"Client F"},
-    
-    
-    ];
-
- 
-  
   
 
   // creating instance of LoggerService, initializing the high-charts options
@@ -146,7 +115,7 @@ export class SetChart {
       this.chart = chartInstance;
     }
  
-    newOptions: Object = {
+    incomingOptions: any = {
         xAxis: {
           categories: ["Node A", "Node B", "Node C"]
         },
@@ -196,18 +165,16 @@ export class SetChart {
 
   }
 
+  //anytime you want to ADD a new client you have to use "addSeries()"
   public updateData () {
      
-     if(this.changeFlag == false)
-     {
-       this.chart.update(this.newOptions);
-       this.changeFlag = true;
-     }
-     else
-     {
-       this.chart.update(this.options);
-       this.changeFlag = false;
-     }   
+   
+       this.chart.addSeries({
+            type: 'column',
+            name: 'Client D',
+            data: [1,2,4,3]
+       });
+       
   }
 
   private setData(incomingData?:any, filter?:any ):void {
@@ -244,7 +211,7 @@ export class SetChart {
      this.setNodeLabels(this.dataset);
      this.countAllClientsNodes(this.dataset);
      this.setBarChartData();
-     this.removePreviousData();
+    
      //this.updateData();
      
     
@@ -326,7 +293,10 @@ private setClientLabels(incomingData:any) {
       }
 
     this.clientLabels = labels;
-    this.clientLabels.slice();
+  for(let i = 0; i < this.clientLabels.length; i++)
+  {
+    this.incomingOptions.series[i].name = labels[i];
+  }
     
     
 }
@@ -334,16 +304,7 @@ private setClientLabels(incomingData:any) {
 
 // right now ng-2 charts only refreshes data when a label from the barChartData[x].label value has changed
 // 
-private removePreviousData()
-{
-  let chartExtra = this.oldBarChartData.length - this.barChartData.length;
 
-  let labelExtra = this.oldBarChartLabeles.length - this.barChartLabels.length;
-
-  if(chartExtra > 0) { this.barChartData.splice(chartExtra) }
-  if(labelExtra > 0) { this.barChartLabels.splice(labelExtra) }
-
-}
 
 private setNodeLabels(incomingData:any) {
   let labels:any = [];
@@ -358,6 +319,7 @@ private setNodeLabels(incomingData:any) {
 
     this.nodeLabels = labels;
     this.nodeLabels = this.nodeLabels.slice();
+    this.incomingOptions.xAxis.categories = labels;
 }
  
   

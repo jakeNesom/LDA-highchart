@@ -15,6 +15,7 @@ var loggerdata_service_1 = require('./loggerdata.service');
 //ng on changes
 //http://stackoverflow.com/questions/35823698/how-to-make-ngonchanges-work-in-angular2
 var SetChart = (function () {
+    // variable toggles activelyLook() to stop the repeating get requests
     // creating instance of LoggerService, initializing the high-charts options
     function SetChart(loggerService, sanitizer, _applicationRef) {
         this.loggerService = loggerService;
@@ -29,25 +30,8 @@ var SetChart = (function () {
         this.nodeLabels = [];
         this.initFlag = false;
         this.newDataListening = false;
-        // variable toggles activelyLook() to stop the repeating get requests
-        /** Bar Chart Variables  */
-        this.barChartOptions = {
-            scaleShowVerticalLines: false,
-            responsive: true
-        };
-        this.barChartLabels = ['NodeA', "NodeB", "NodeC"];
-        this.barChartType = 'bar';
-        this.barChartLegend = true;
-        this.barChartData = [
-            { data: ["3", "2"], label: "Client A" },
-            { data: ["2", "1"], label: "Client B" },
-            { data: ["5", "2"], label: "Client C" },
-            { data: ["5", "2"], label: "Client D" },
-            { data: ["5", "2"], label: "Client E" },
-            { data: ["5", "2"], label: "Client F" },
-        ];
         this.changeFlag = false;
-        this.newOptions = {
+        this.incomingOptions = {
             xAxis: {
                 categories: ["Node A", "Node B", "Node C"]
             },
@@ -135,15 +119,13 @@ var SetChart = (function () {
             }, 8000);
         }
     };
+    //anytime you want to ADD a new client you have to use "addSeries()"
     SetChart.prototype.updateData = function () {
-        if (this.changeFlag == false) {
-            this.chart.update(this.newOptions);
-            this.changeFlag = true;
-        }
-        else {
-            this.chart.update(this.options);
-            this.changeFlag = false;
-        }
+        this.chart.addSeries({
+            type: 'column',
+            name: 'Client D',
+            data: [1, 2, 4, 3]
+        });
     };
     SetChart.prototype.setData = function (incomingData, filter) {
         this.oldBarChartData = this.barChartData;
@@ -175,7 +157,6 @@ var SetChart = (function () {
         this.setNodeLabels(this.dataset);
         this.countAllClientsNodes(this.dataset);
         this.setBarChartData();
-        this.removePreviousData();
         //this.updateData();
     };
     SetChart.prototype.filterTime = function () {
@@ -238,20 +219,12 @@ var SetChart = (function () {
             }
         }
         this.clientLabels = labels;
-        this.clientLabels.slice();
+        for (var i = 0; i < this.clientLabels.length; i++) {
+            this.incomingOptions.series[i].name = labels[i];
+        }
     };
     // right now ng-2 charts only refreshes data when a label from the barChartData[x].label value has changed
     // 
-    SetChart.prototype.removePreviousData = function () {
-        var chartExtra = this.oldBarChartData.length - this.barChartData.length;
-        var labelExtra = this.oldBarChartLabeles.length - this.barChartLabels.length;
-        if (chartExtra > 0) {
-            this.barChartData.splice(chartExtra);
-        }
-        if (labelExtra > 0) {
-            this.barChartLabels.splice(labelExtra);
-        }
-    };
     SetChart.prototype.setNodeLabels = function (incomingData) {
         var labels = [];
         //create labels array which fills 'pieChartLables[]'
@@ -262,6 +235,7 @@ var SetChart = (function () {
         }
         this.nodeLabels = labels;
         this.nodeLabels = this.nodeLabels.slice();
+        this.incomingOptions.xAxis.categories = labels;
     };
     SetChart.prototype.countAllClientsNodes = function (incomingData, filter) {
         var clabels = [];
