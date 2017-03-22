@@ -1,0 +1,12 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    //Hiding JS files derrived
+    //from typescript files
+
+ "files.exclude": {
+    "**/*.js": { "when": "$(basename).ts"},
+    "**/*.js.map": true
+ }
+
+
+}
