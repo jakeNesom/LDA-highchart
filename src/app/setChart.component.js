@@ -128,8 +128,8 @@ var SetChart = (function () {
         });
     };
     SetChart.prototype.setData = function (incomingData, filter) {
-        this.oldBarChartData = this.barChartData;
-        this.oldBarChartLabeles = this.barChartLabels;
+        // this.oldBarChartData = this.barChartData;
+        //  this.oldBarChartLabeles = this.barChartLabels;
         // this if statement should only be true on init
         if (incomingData) {
             this.dataset = incomingData;
@@ -153,10 +153,14 @@ var SetChart = (function () {
         }
         // set labels
         this.setClientLabels(this.dataset);
+        // check if there's a change in the chart.series[] array length - if we need more room we have to use 
+        // a highchart method to add new series
+        // also if  when updating the chart display, if there's now less series than before, we need to remmove the old series first
+        this.reInitializeChartSeries();
         //this.removeExtraLabels();
         this.setNodeLabels(this.dataset);
         this.countAllClientsNodes(this.dataset);
-        this.setBarChartData();
+        this.setChartData();
         //this.updateData();
     };
     SetChart.prototype.filterTime = function () {
@@ -212,19 +216,36 @@ var SetChart = (function () {
     };
     SetChart.prototype.setClientLabels = function (incomingData) {
         var labels = [];
-        //create labels array which fills 'pieChartLables[]'
         for (var x = 0; x < incomingData.length; x++) {
             if (labels.indexOf(incomingData[x].client) === -1) {
                 labels.push(incomingData[x].client);
             }
         }
         this.clientLabels = labels;
+        this.clientLabels.slice();
+        //set labels for incomingOptions Series
         for (var i = 0; i < this.clientLabels.length; i++) {
+            this.incomingOptions.series[i] = {};
+            this.incomingOptions.series[i].data = [];
             this.incomingOptions.series[i].name = labels[i];
         }
     };
-    // right now ng-2 charts only refreshes data when a label from the barChartData[x].label value has changed
-    // 
+    SetChart.prototype.reInitializeChartSeries = function () {
+        if (this.chart.series.length < this.clientLabels.length) {
+            var extraProperties = this.clientLabels.length - this.chart.series.length;
+            for (var i = 0; i < extraProperties; i++) {
+                this.chart.addSeries({
+                    name: 'place',
+                    data: [0]
+                });
+            }
+        }
+        else if (this.chart.series.length > this.clientLabels.length) {
+            for (var i = this.clientLabels.length; i < this.chart.series.length; i++) {
+                this.chart.series[i].remove();
+            }
+        }
+    };
     SetChart.prototype.setNodeLabels = function (incomingData) {
         var labels = [];
         //create labels array which fills 'pieChartLables[]'
@@ -235,13 +256,17 @@ var SetChart = (function () {
         }
         this.nodeLabels = labels;
         this.nodeLabels = this.nodeLabels.slice();
+        // set node labels to the categories section of  incoming Options
         this.incomingOptions.xAxis.categories = labels;
     };
     SetChart.prototype.countAllClientsNodes = function (incomingData, filter) {
+        //clear out old data from ClientTotals
+        this.clientTotals = {};
         var clabels = [];
         var nlabels = [];
         clabels = this.clientLabels;
         nlabels = this.nodeLabels;
+        // initialize clientTotals object properties
         for (var h = 0; h < clabels.length; h++) {
             this.clientTotals[clabels[h]] = {};
             for (var i = 0; i < nlabels.length; i++) {
@@ -249,10 +274,7 @@ var SetChart = (function () {
                 this.clientTotals[clabels[h]][nlabels[i]]["total"] = 0;
             }
         }
-        // populate client section of clientTotals array & initialize 'total' property value
-        for (var i = 0; i < this.nodeLabels.length; i++) {
-            this.barChartLabels[i] = this.nodeLabels[i];
-        }
+        // Fill clientTotals Object with count data
         // for each present Client
         var size = 0;
         for (var client in this.clientTotals) {
@@ -273,27 +295,24 @@ var SetChart = (function () {
             size++;
         }
     };
-    SetChart.prototype.setBarChartData = function () {
+    SetChart.prototype.setChartData = function () {
         // Initialize barChartData object array
         // -- if you don't initialize the array with the number of objects it will contain,
         // the data won't show up correctly
         //this.barChartData = new Array(this.clientLabels.length-1);
-        // get clientTotals associative array length
-        // copy data to barChartData array
-        var size = 0;
-        for (var client in this.clientTotals) {
-            var dataSize = 0;
-            this.barChartData[size] = {};
-            this.barChartData[size]["label"] = client;
-            this.barChartData[size]["data"] = [];
-            for (var node in this.clientTotals[client]) {
-                this.barChartData[size]["data"][dataSize] = 0;
-                this.barChartData[size]["data"][dataSize] = this.clientTotals[client][node]["total"];
-                dataSize++;
+        var clabels = [];
+        var nlabels = [];
+        clabels = this.clientLabels;
+        nlabels = this.nodeLabels;
+        for (var i = 0; i < clabels.length; i++) {
+            for (var j = 0; j < nlabels.length; j++) {
+                this.incomingOptions.series[i].data[j] = this.clientTotals[clabels[i]][nlabels[j]].total;
             }
-            size++;
         }
-        this.barChartData = this.barChartData.slice();
+        this.chart.xAxis[0].setCategories(this.incomingOptions.xAxis.categories);
+        for (var k = 0; k < this.incomingOptions.series.length; k++) {
+            this.chart.series[k].update(this.incomingOptions.series[k]);
+        }
     };
     // public updateData () {
     //   this.chart.chart.labels = this.barChartLabels.slice();
@@ -312,26 +331,6 @@ var SetChart = (function () {
     };
     SetChart.prototype.barChartHovered = function (e) {
         console.log(e);
-    };
-    SetChart.prototype.barChartRandomize = function () {
-        // Only Change 3 values
-        var data = [
-            Math.round(Math.random() * 100),
-            59,
-            80,
-            (Math.random() * 100),
-            56,
-            (Math.random() * 100),
-            40];
-        var clone = JSON.parse(JSON.stringify(this.barChartData));
-        clone[0].data = data;
-        this.barChartData = clone;
-        /**
-         * (My guess), for Angular to recognize the change in the dataset
-         * it has to change the dataset variable directly,
-         * so one way around it, is to clone the data, change it and then
-         * assign it;
-         */
     };
     __decorate([
         core_1.Input(), 

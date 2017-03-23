@@ -107,7 +107,9 @@ export class SetChart {
         //setInterval( () => this.chart.series[0].addPoint(Math.random()*10), 1000);
     }
 
-    chart : Object;
+    chart : any;
+
+    
     options: Object;
     oldOptions: Object;
     private changeFlag = false;
@@ -179,8 +181,8 @@ export class SetChart {
 
   private setData(incomingData?:any, filter?:any ):void {
      
-     this.oldBarChartData = this.barChartData;
-     this.oldBarChartLabeles = this.barChartLabels;
+    // this.oldBarChartData = this.barChartData;
+   //  this.oldBarChartLabeles = this.barChartLabels;
 
      // this if statement should only be true on init
      if(incomingData) {
@@ -207,10 +209,16 @@ export class SetChart {
      
      // set labels
      this.setClientLabels(this.dataset);
+
+     // check if there's a change in the chart.series[] array length - if we need more room we have to use 
+     // a highchart method to add new series
+     // also if  when updating the chart display, if there's now less series than before, we need to remmove the old series first
+     this.reInitializeChartSeries();
+
      //this.removeExtraLabels();
      this.setNodeLabels(this.dataset);
      this.countAllClientsNodes(this.dataset);
-     this.setBarChartData();
+     this.setChartData();
     
      //this.updateData();
      
@@ -283,7 +291,7 @@ filterNode() {
 
 private setClientLabels(incomingData:any) {
   let labels:any = [];
-    //create labels array which fills 'pieChartLables[]'
+    
      for(let x = 0; x < incomingData.length; x++)
      {
         if (labels.indexOf(incomingData[x].client) === -1 )
@@ -293,17 +301,43 @@ private setClientLabels(incomingData:any) {
       }
 
     this.clientLabels = labels;
-  for(let i = 0; i < this.clientLabels.length; i++)
-  {
-    this.incomingOptions.series[i].name = labels[i];
-  }
+    this.clientLabels.slice();
+
+    //set labels for incomingOptions Series
+    for(let i = 0; i < this.clientLabels.length; i++)
+    {
+      this.incomingOptions.series[i] = {};
+      this.incomingOptions.series[i].data = [];
+      this.incomingOptions.series[i].name = labels[i];
+    }
     
     
 }
 
 
-// right now ng-2 charts only refreshes data when a label from the barChartData[x].label value has changed
-// 
+private reInitializeChartSeries() {
+  
+  if(this.chart.series.length < this.clientLabels.length )
+  {
+    let extraProperties:number = this.clientLabels.length - this.chart.series.length;
+    for( let i = 0; i < extraProperties; i++ )
+    {
+      this.chart.addSeries({
+        name: 'place',
+        data : [0]
+      });
+    }
+
+  }
+
+  else if(this.chart.series.length > this.clientLabels.length)
+  {
+    for( let i = this.clientLabels.length; i < this.chart.series.length; i++)
+    {
+      this.chart.series[i].remove();
+    }
+  }
+}
 
 
 private setNodeLabels(incomingData:any) {
@@ -319,16 +353,22 @@ private setNodeLabels(incomingData:any) {
 
     this.nodeLabels = labels;
     this.nodeLabels = this.nodeLabels.slice();
+
+    // set node labels to the categories section of  incoming Options
     this.incomingOptions.xAxis.categories = labels;
 }
  
   
   private countAllClientsNodes(incomingData:any, filter?: any):void {
+    //clear out old data from ClientTotals
+    this.clientTotals = {};
+    
     let clabels:any =  [];
     let nlabels:any = [];
     clabels = this.clientLabels;
     nlabels = this.nodeLabels;
 
+    // initialize clientTotals object properties
     for(let h = 0; h < clabels.length; h++ )
     {
       this.clientTotals[clabels[h]] = {};
@@ -341,14 +381,9 @@ private setNodeLabels(incomingData:any) {
     }
 
 
-    // populate client section of clientTotals array & initialize 'total' property value
-    
-    for(let i = 0; i < this.nodeLabels.length; i++)
-    {
-      this.barChartLabels[i] = this.nodeLabels[i];
-    }
+   
 
-
+    // Fill clientTotals Object with count data
     // for each present Client
     let size = 0;
     for(let client in this.clientTotals)
@@ -379,40 +414,33 @@ private setNodeLabels(incomingData:any) {
   }
 
   
-  private setBarChartData (): void {
+  private setChartData (): void {
       // Initialize barChartData object array
       // -- if you don't initialize the array with the number of objects it will contain,
       // the data won't show up correctly
      //this.barChartData = new Array(this.clientLabels.length-1);
-      
+     let clabels:any =  [];
+    let nlabels:any = [];
+    clabels = this.clientLabels;
+    nlabels = this.nodeLabels;
 
-
+     for(let i = 0; i < clabels.length; i++ )
+     {
+       for(let j = 0; j < nlabels.length; j++ )
+       {
+         this.incomingOptions.series[i].data[j] = this.clientTotals[clabels[i]][nlabels[j]].total;
+       }
+     }
+     
+    this.chart.xAxis[0].setCategories(this.incomingOptions.xAxis.categories);
+    
     
 
-
-
-    // get clientTotals associative array length
-    // copy data to barChartData array
-      
-      let size = 0;
-      for (let client in this.clientTotals)
-      {
-        let dataSize = 0;
-        this.barChartData[size] = {};
-        this.barChartData[size]["label"] = client;
-        this.barChartData[size]["data"] = [];
-        for( let node in this.clientTotals[client])
-        {
-          
-          this.barChartData[size]["data"][dataSize] = 0;
-          this.barChartData[size]["data"][dataSize] = this.clientTotals[client][node]["total"];
-          dataSize++;
-        }
-        
-        size++;
-      }  
-      
-      this.barChartData = this.barChartData.slice();
+    for ( let k = 0 ; k < this.incomingOptions.series.length; k++)
+    {
+       this.chart.series[k].update(this.incomingOptions.series[k]);
+    }
+   
   }
      
 
@@ -460,24 +488,5 @@ private setNodeLabels(incomingData:any) {
     console.log(e);
   }
  
-  public barChartRandomize():void {
-    // Only Change 3 values
-    let data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    let clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = data;
-    this.barChartData = clone;
-    /**
-     * (My guess), for Angular to recognize the change in the dataset
-     * it has to change the dataset variable directly,
-     * so one way around it, is to clone the data, change it and then
-     * assign it;
-     */
-  }
+   
 }
