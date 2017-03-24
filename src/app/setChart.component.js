@@ -31,6 +31,7 @@ var SetChart = (function () {
         this.initFlag = false;
         this.newDataListening = false;
         this.changeFlag = false;
+        // some example graph options that will appear if your methods aren't working correctly
         this.incomingOptions = {
             xAxis: {
                 categories: ["Node A", "Node B", "Node C"]
@@ -128,8 +129,6 @@ var SetChart = (function () {
         });
     };
     SetChart.prototype.setData = function (incomingData, filter) {
-        // this.oldBarChartData = this.barChartData;
-        //  this.oldBarChartLabeles = this.barChartLabels;
         // this if statement should only be true on init
         if (incomingData) {
             this.dataset = incomingData;
@@ -231,6 +230,10 @@ var SetChart = (function () {
         }
     };
     SetChart.prototype.reInitializeChartSeries = function () {
+        /* Use this method to add-more / remove clients from the 'series' property of the
+           highcharts chart  - this.chart.series
+           ---- Should run this method every time you check for new data */
+        // when you want to show more clients on the graph than before:
         if (this.chart.series.length < this.clientLabels.length) {
             var extraProperties = this.clientLabels.length - this.chart.series.length;
             for (var i = 0; i < extraProperties; i++) {
@@ -241,12 +244,13 @@ var SetChart = (function () {
             }
         }
         else if (this.chart.series.length > this.clientLabels.length) {
-            for (var i = this.clientLabels.length; i < this.chart.series.length; i++) {
-                this.chart.series[i].remove();
+            while (this.chart.series.length > this.clientLabels.length) {
+                this.chart.series[this.clientLabels.length].remove();
             }
         }
     };
     SetChart.prototype.setNodeLabels = function (incomingData) {
+        /* This method creates an array of nodes */
         var labels = [];
         //create labels array which fills 'pieChartLables[]'
         for (var x = 0; x < incomingData.length; x++) {

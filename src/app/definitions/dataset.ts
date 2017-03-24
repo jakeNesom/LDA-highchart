@@ -1,7 +1,7 @@
 export class Dataset {
 
-    id: number;
+    _id: number;
     client: string;
     time: string;
-    node: string;
+    node?: string;
 }

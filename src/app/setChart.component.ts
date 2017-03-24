@@ -117,6 +117,7 @@ export class SetChart {
       this.chart = chartInstance;
     }
  
+    // some example graph options that will appear if your methods aren't working correctly
     incomingOptions: any = {
         xAxis: {
           categories: ["Node A", "Node B", "Node C"]
@@ -180,9 +181,6 @@ export class SetChart {
   }
 
   private setData(incomingData?:any, filter?:any ):void {
-     
-    // this.oldBarChartData = this.barChartData;
-   //  this.oldBarChartLabeles = this.barChartLabels;
 
      // this if statement should only be true on init
      if(incomingData) {
@@ -316,7 +314,11 @@ private setClientLabels(incomingData:any) {
 
 
 private reInitializeChartSeries() {
-  
+  /* Use this method to add-more / remove clients from the 'series' property of the 
+     highcharts chart  - this.chart.series  
+     ---- Should run this method every time you check for new data */ 
+
+  // when you want to show more clients on the graph than before:
   if(this.chart.series.length < this.clientLabels.length )
   {
     let extraProperties:number = this.clientLabels.length - this.chart.series.length;
@@ -330,17 +332,21 @@ private reInitializeChartSeries() {
 
   }
 
+  //when you want to display less clients than are curently displayed
   else if(this.chart.series.length > this.clientLabels.length)
   {
-    for( let i = this.clientLabels.length; i < this.chart.series.length; i++)
+    while (this.chart.series.length > this.clientLabels.length)
     {
-      this.chart.series[i].remove();
+      this.chart.series[this.clientLabels.length].remove();
     }
+   
   }
 }
 
 
 private setNodeLabels(incomingData:any) {
+  /* This method creates an array of nodes */
+  
   let labels:any = [];
     //create labels array which fills 'pieChartLables[]'
      for(let x = 0; x < incomingData.length; x++)

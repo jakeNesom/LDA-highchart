@@ -8,7 +8,8 @@ import { Dataset } from './definitions/dataset';
 @Injectable ()
 export class LoggerService {
 
-    private loggerUrl = 'api/loggerData';
+    //private loggerUrl = 'api/loggerData';
+    private loggerUrl = 'localhost:3039/read/getall/';
 
     constructor(private http: Http) {}
 

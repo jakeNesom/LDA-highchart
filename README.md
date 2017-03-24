@@ -1,3 +1,10 @@
+# lite-server patching for CORS 
+http://stackoverflow.com/questions/35086608/npm-start-using-cors
+I had to follow instructions to patch the lite server to read cors so this localhost server can talk to the nodejs server @ localhost:3039 and read the get api
+Since i changed node_modules files those changes aren't part of the commit and you'll need to recreate the changes when downloading the repository from other machines
+
+
+
 # Angular QuickStart Source
 [![Build Status][travis-badge]][travis-badge-url]
 

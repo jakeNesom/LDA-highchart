@@ -14,7 +14,8 @@ require('rxjs/add/operator/toPromise');
 var LoggerService = (function () {
     function LoggerService(http) {
         this.http = http;
-        this.loggerUrl = 'api/loggerData';
+        //private loggerUrl = 'api/loggerData';
+        this.loggerUrl = 'localhost:3039/read/getall/';
     }
     LoggerService.prototype.getClients = function () {
         return;

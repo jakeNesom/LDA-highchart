@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { JSONPConnection } from '@angular/http';
 
 @Component({
   selector: 'graph-app',
