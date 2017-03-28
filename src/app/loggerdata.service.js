@@ -8,14 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-require('rxjs/add/operator/toPromise');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+require("rxjs/add/operator/toPromise");
 var LoggerService = (function () {
     function LoggerService(http) {
         this.http = http;
         //private loggerUrl = 'api/loggerData';
-        this.loggerUrl = 'localhost:3039/read/getall/';
+        this.loggerUrl = 'http://localhost:3039/read/getall/';
     }
     LoggerService.prototype.getClients = function () {
         return;
@@ -23,18 +24,21 @@ var LoggerService = (function () {
     LoggerService.prototype.getLoggerData = function () {
         return this.http.get(this.loggerUrl)
             .toPromise()
-            .then(function (response) { return response.json().data; }) //do i need to declare a type for the data?
+            .then(function (response) {
+            console.log("logger response " + response.json().data);
+            return response.json().data;
+        })
             .catch(this.handleError);
     };
     LoggerService.prototype.handleError = function (error) {
         console.error('An error occured', error);
         return Promise.reject(error.message || error);
     };
-    LoggerService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], LoggerService);
     return LoggerService;
 }());
+LoggerService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], LoggerService);
 exports.LoggerService = LoggerService;
 //# sourceMappingURL=loggerdata.service.js.map

@@ -182,6 +182,8 @@ export class SetChart {
 
   private setData(incomingData?:any, filter?:any ):void {
 
+     console.log(incomingData);
+     
      // this if statement should only be true on init
      if(incomingData) {
         this.dataset = incomingData;

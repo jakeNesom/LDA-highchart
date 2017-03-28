@@ -8,10 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var core_2 = require('@angular/core');
-var loggerdata_service_1 = require('./loggerdata.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var core_2 = require("@angular/core");
+var loggerdata_service_1 = require("./loggerdata.service");
 //ng on changes
 //http://stackoverflow.com/questions/35823698/how-to-make-ngonchanges-work-in-angular2
 var SetChart = (function () {
@@ -95,6 +96,7 @@ var SetChart = (function () {
         }
         if (this.activelyLookForDataC !== this.newDataListening) {
             this.newDataListening = this.activelyLookForDataC;
+            //this.lookForNewData();
         }
     };
     SetChart.prototype.saveInstance = function (chartInstance) {
@@ -129,6 +131,7 @@ var SetChart = (function () {
         });
     };
     SetChart.prototype.setData = function (incomingData, filter) {
+        console.log(incomingData);
         // this if statement should only be true on init
         if (incomingData) {
             this.dataset = incomingData;
@@ -336,31 +339,33 @@ var SetChart = (function () {
     SetChart.prototype.barChartHovered = function (e) {
         console.log(e);
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], SetChart.prototype, "currentClientC", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], SetChart.prototype, "currentNodeC", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], SetChart.prototype, "timeFilterC", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Boolean)
-    ], SetChart.prototype, "activelyLookForDataC", void 0);
-    SetChart = __decorate([
-        core_1.Component({
-            selector: 'setChart',
-            styles: ["\n      chart {\n        display:block;\n      }\n  "],
-            templateUrl: 'app/views/setchart.html',
-        }), 
-        __metadata('design:paramtypes', [loggerdata_service_1.LoggerService, platform_browser_1.DomSanitizer, core_2.ApplicationRef])
-    ], SetChart);
     return SetChart;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], SetChart.prototype, "currentClientC", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], SetChart.prototype, "currentNodeC", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], SetChart.prototype, "timeFilterC", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], SetChart.prototype, "activelyLookForDataC", void 0);
+SetChart = __decorate([
+    core_1.Component({
+        selector: 'setChart',
+        styles: ["\n      chart {\n        display:block;\n      }\n  "],
+        templateUrl: 'app/views/setchart.html',
+    }),
+    __metadata("design:paramtypes", [loggerdata_service_1.LoggerService,
+        platform_browser_1.DomSanitizer,
+        core_2.ApplicationRef])
+], SetChart);
 exports.SetChart = SetChart;
 //# sourceMappingURL=setChart.component.js.map

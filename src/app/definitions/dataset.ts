@@ -4,4 +4,5 @@ export class Dataset {
     client: string;
     time: string;
     node?: string;
+    message: string
 }

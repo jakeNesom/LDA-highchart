@@ -8,7 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
 /* tslint:disable-next-line */
 var BaseChartDirective = (function () {
     function BaseChartDirective(element) {
@@ -167,62 +168,62 @@ var BaseChartDirective = (function () {
         this.ngOnDestroy();
         this.chart = this.getChartBuilder(this.ctx /*, data, this.options*/);
     };
-    BaseChartDirective.defaultColors = [
-        [255, 99, 132],
-        [54, 162, 235],
-        [255, 206, 86],
-        [231, 233, 237],
-        [75, 192, 192],
-        [151, 187, 205],
-        [220, 220, 220],
-        [247, 70, 74],
-        [70, 191, 189],
-        [253, 180, 92],
-        [148, 159, 177],
-        [77, 83, 96]
-    ];
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], BaseChartDirective.prototype, "data", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Array)
-    ], BaseChartDirective.prototype, "datasets", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Array)
-    ], BaseChartDirective.prototype, "labels", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], BaseChartDirective.prototype, "options", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], BaseChartDirective.prototype, "chartType", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Array)
-    ], BaseChartDirective.prototype, "colors", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Boolean)
-    ], BaseChartDirective.prototype, "legend", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', core_1.EventEmitter)
-    ], BaseChartDirective.prototype, "chartClick", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', core_1.EventEmitter)
-    ], BaseChartDirective.prototype, "chartHover", void 0);
-    BaseChartDirective = __decorate([
-        core_1.Directive({ selector: 'canvas[baseChart]', exportAs: 'base-chart' }), 
-        __metadata('design:paramtypes', [core_1.ElementRef])
-    ], BaseChartDirective);
     return BaseChartDirective;
 }());
+BaseChartDirective.defaultColors = [
+    [255, 99, 132],
+    [54, 162, 235],
+    [255, 206, 86],
+    [231, 233, 237],
+    [75, 192, 192],
+    [151, 187, 205],
+    [220, 220, 220],
+    [247, 70, 74],
+    [70, 191, 189],
+    [253, 180, 92],
+    [148, 159, 177],
+    [77, 83, 96]
+];
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], BaseChartDirective.prototype, "data", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], BaseChartDirective.prototype, "datasets", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], BaseChartDirective.prototype, "labels", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], BaseChartDirective.prototype, "options", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], BaseChartDirective.prototype, "chartType", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], BaseChartDirective.prototype, "colors", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], BaseChartDirective.prototype, "legend", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], BaseChartDirective.prototype, "chartClick", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], BaseChartDirective.prototype, "chartHover", void 0);
+BaseChartDirective = __decorate([
+    core_1.Directive({ selector: 'canvas[baseChart]', exportAs: 'base-chart' }),
+    __metadata("design:paramtypes", [core_1.ElementRef])
+], BaseChartDirective);
 exports.BaseChartDirective = BaseChartDirective;
 function rgba(colour, alpha) {
     return 'rgba(' + colour.concat(alpha).join(',') + ')';
@@ -314,19 +315,18 @@ function getColors(chartType, index, count) {
 var ChartsModule = (function () {
     function ChartsModule() {
     }
-    ChartsModule = __decorate([
-        core_1.NgModule({
-            declarations: [
-                BaseChartDirective
-            ],
-            exports: [
-                BaseChartDirective
-            ],
-            imports: []
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ChartsModule);
     return ChartsModule;
 }());
+ChartsModule = __decorate([
+    core_1.NgModule({
+        declarations: [
+            BaseChartDirective
+        ],
+        exports: [
+            BaseChartDirective
+        ],
+        imports: []
+    })
+], ChartsModule);
 exports.ChartsModule = ChartsModule;
 //# sourceMappingURL=charts.js.map

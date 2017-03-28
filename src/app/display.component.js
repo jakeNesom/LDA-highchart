@@ -8,8 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var loggerdata_service_1 = require('./loggerdata.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var loggerdata_service_1 = require("./loggerdata.service");
 var DisplayComponent = (function () {
     function DisplayComponent(loggerService) {
         this.loggerService = loggerService;
@@ -105,15 +106,15 @@ var DisplayComponent = (function () {
         this.allData.currentClient = "ALL";
         this.allData.currentNode = "ALL";
     };
-    DisplayComponent = __decorate([
-        core_1.Component({
-            selector: 'displayComponent',
-            templateUrl: "app/views/display.html",
-            styleUrls: ['app/css/display.css'],
-        }), 
-        __metadata('design:paramtypes', [loggerdata_service_1.LoggerService])
-    ], DisplayComponent);
     return DisplayComponent;
 }());
+DisplayComponent = __decorate([
+    core_1.Component({
+        selector: 'displayComponent',
+        templateUrl: "app/views/display.html",
+        styleUrls: ['app/css/display.css'],
+    }),
+    __metadata("design:paramtypes", [loggerdata_service_1.LoggerService])
+], DisplayComponent);
 exports.DisplayComponent = DisplayComponent;
 //# sourceMappingURL=display.component.js.map

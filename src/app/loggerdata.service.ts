@@ -9,7 +9,7 @@ import { Dataset } from './definitions/dataset';
 export class LoggerService {
 
     //private loggerUrl = 'api/loggerData';
-    private loggerUrl = 'localhost:3039/read/getall/';
+    private loggerUrl = 'http://localhost:3039/read/getall/';
 
     constructor(private http: Http) {}
 
@@ -22,13 +22,17 @@ export class LoggerService {
         
         return this.http.get(this.loggerUrl)
             .toPromise()
-            .then(response => response.json().data as Dataset[])   //do i need to declare a type for the data?
+            .then( function( response ) { 
+                console.log("logger response " + response.json().data);
+                return response.json().data as Dataset[] 
+            })  
             .catch(this.handleError);
     }
 
     
 
     private handleError(error: any): Promise <any> {
+       
         console.error('An error occured', error);
         return Promise.reject(error.message || error );
     }

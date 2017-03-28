@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var loggerdata_service_1 = require('./loggerdata.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var loggerdata_service_1 = require("./loggerdata.service");
 //ng on changes
 //http://stackoverflow.com/questions/35823698/how-to-make-ngonchanges-work-in-angular2
 var Chart2 = (function () {
@@ -209,26 +210,26 @@ var Chart2 = (function () {
     Chart2.prototype.barChartHovered = function (e) {
         console.log(e);
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], Chart2.prototype, "currentClientC", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], Chart2.prototype, "currentNodeC", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', String)
-    ], Chart2.prototype, "timeFilterC", void 0);
-    Chart2 = __decorate([
-        core_1.Component({
-            selector: 'chart2',
-            templateUrl: 'app/views/chart2.html',
-        }), 
-        __metadata('design:paramtypes', [loggerdata_service_1.LoggerService, platform_browser_1.DomSanitizer])
-    ], Chart2);
     return Chart2;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], Chart2.prototype, "currentClientC", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], Chart2.prototype, "currentNodeC", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], Chart2.prototype, "timeFilterC", void 0);
+Chart2 = __decorate([
+    core_1.Component({
+        selector: 'chart2',
+        templateUrl: 'app/views/chart2.html',
+    }),
+    __metadata("design:paramtypes", [loggerdata_service_1.LoggerService, platform_browser_1.DomSanitizer])
+], Chart2);
 exports.Chart2 = Chart2;
 //# sourceMappingURL=chart2.component.js.map
