@@ -35,7 +35,7 @@ export class DisplayComponent  {
   public currentNode = "ALL";
   public timeFilter = "ALL";
   
-  public activelyLookForData: boolean = true;
+  public activelyLookForData: boolean = false;
 
   
   public allData = {
@@ -142,7 +142,20 @@ export class DisplayComponent  {
   toggleCheck ()
   {
     if( this.activelyLookForData == true ) this.activelyLookForData = false;
-    else this.activelyLookForData = true; 
+    else 
+    {
+    
+    this.loggerService.getLoggerData()
+    .then(dataset => this.setData(dataset) );
+    
+    this.activelyLookForData = true;
+    
+     setTimeout( () => {
+      
+        this.activelyLookForData = false;
+     }, 3000) 
+      
+    }
   }
 
   resetSelect ()

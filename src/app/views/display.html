@@ -6,9 +6,9 @@
                 </div>
                 <div class="panel-body">
                 
-                        <div (click)="toggleCheck()" [ngClass]="activelyLookForData == true ? 'btn-success' : 'btn-danger' " class="btn btn-sm btn-raised active">
-                            <span *ngIf='activelyLookForData'> <span style="color:white;"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> &nbsp; Refreshing Data </span> </span>
-                            <span *ngIf='!activelyLookForData'> <span style="color:white"> Refresh Stopped </span> </span>
+                        <div (click)="toggleCheck()" [ngClass]="activelyLookForData == true ? 'btn-success' : 'btn-default' " class="btn btn-sm btn-raised active">
+                            <span *ngIf='activelyLookForData'> <span style="color:white;"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> &nbsp; Refreshing</span> </span>
+                            <span *ngIf='!activelyLookForData'> <span style="color:black"> Refresh Data </span> </span>
                         </div>
                 <form>        
                         <div class="form-group">

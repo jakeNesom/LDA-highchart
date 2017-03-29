@@ -55,11 +55,11 @@ export class SetChart {
       
     }
 
-    if( this.activelyLookForDataC !== this.newDataListening )
-    {
-      this.newDataListening = this.activelyLookForDataC;
-      //this.lookForNewData();
-    }
+    // if( this.activelyLookForDataC == true )
+    // {
+      
+    //   this.lookForNewData();
+    // }
     
   }
   //incoming data from loggingService Get request
@@ -105,6 +105,8 @@ export class SetChart {
       };
       this.oldOptions = this.options;
         //setInterval( () => this.chart.series[0].addPoint(Math.random()*10), 1000);
+      
+     
     }
 
     chart : any;
@@ -147,26 +149,20 @@ export class SetChart {
 
     this.loggerService.getLoggerData()
       .then( dataset => this.setData(dataset) );
+
+    
   }
 
   
   public lookForNewData() {
-    
-
-    while(this.newDataListening = true)
-    {
-        setTimeout(function() { 
           let newData:any;
-         
           this.loggerService.getLoggerData()
           .then( (data:any) => newData = data );
-
-          if(newData !== this.dataset) { this.dataset = newData;}
-      }, 8000);
+          if(newData !== this.dataset) { this.setData(newData); }
     }
     
 
-  }
+  
 
   //anytime you want to ADD a new client you have to use "addSeries()"
   public updateData () {
@@ -182,21 +178,19 @@ export class SetChart {
 
   private setData(incomingData?:any, filter?:any ):void {
 
-     console.log(incomingData);
+    if(this.initFlag === true) {
+     console.log("Updating using data: " + incomingData);
+    }
      
      // this if statement should only be true on init
      if(incomingData) {
         this.dataset = incomingData;
         this.dataset = this.dataset.slice();
         
-        this.initFlag = true;
-     }
+       if(this.initFlag === false ) this.initFlag = true;
+     } else(console.log('IncomingData parameter of setData() not defined'))
 
-    //  if( !incomingData )
-    //  {
-    //    this.loggerService.getLoggerData()
-    //   .then( dataset => this.setData(dataset) );
-    //  }
+   
 
      // filter time, then client, then node
      if( this.timeFilterC != "ALL")
@@ -449,51 +443,6 @@ private setNodeLabels(incomingData:any) {
        this.chart.series[k].update(this.incomingOptions.series[k]);
     }
    
-  }
-     
-
- 
- 
-
-// public updateData () {
-  
-  
-//   this.chart.chart.labels = this.barChartLabels.slice();
-//   this.chart.chart.datasets = this.barChartData.splice(this.barChartData.length,1);
-// }
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
- // THE FOLLOWING FUNCTIONS ARE LEFTOVER FROM THE ng2-charts examples I used to create this Component, none are being used
-
-  
- 
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
- 
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
-
-  // events
-  public barChartClicked(e:any):void {
-    console.log(e);
-  }
- 
-  public barChartHovered(e:any):void {
-    console.log(e);
   }
  
    

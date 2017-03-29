@@ -28,7 +28,7 @@ var DisplayComponent = (function () {
         this.currentClient = "ALL";
         this.currentNode = "ALL";
         this.timeFilter = "ALL";
-        this.activelyLookForData = true;
+        this.activelyLookForData = false;
         this.allData = {
             clientTotals: [{ client: "", total: "" }],
             clientList: [],
@@ -93,10 +93,17 @@ var DisplayComponent = (function () {
         console.log(this.allData.timeFilter);
     };
     DisplayComponent.prototype.toggleCheck = function () {
+        var _this = this;
         if (this.activelyLookForData == true)
             this.activelyLookForData = false;
-        else
+        else {
+            this.loggerService.getLoggerData()
+                .then(function (dataset) { return _this.setData(dataset); });
             this.activelyLookForData = true;
+            setTimeout(function () {
+                _this.activelyLookForData = false;
+            }, 3000);
+        }
     };
     DisplayComponent.prototype.resetSelect = function () {
         this.currentClient = "ALL";

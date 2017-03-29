@@ -94,10 +94,10 @@ var SetChart = (function () {
             this.loggerService.getLoggerData()
                 .then(function (dataset) { return _this.setData(dataset); });
         }
-        if (this.activelyLookForDataC !== this.newDataListening) {
-            this.newDataListening = this.activelyLookForDataC;
-            //this.lookForNewData();
-        }
+        // if( this.activelyLookForDataC == true )
+        // {
+        //   this.lookForNewData();
+        // }
     };
     SetChart.prototype.saveInstance = function (chartInstance) {
         this.chart = chartInstance;
@@ -111,15 +111,11 @@ var SetChart = (function () {
             .then(function (dataset) { return _this.setData(dataset); });
     };
     SetChart.prototype.lookForNewData = function () {
-        while (this.newDataListening = true) {
-            setTimeout(function () {
-                var newData;
-                this.loggerService.getLoggerData()
-                    .then(function (data) { return newData = data; });
-                if (newData !== this.dataset) {
-                    this.dataset = newData;
-                }
-            }, 8000);
+        var newData;
+        this.loggerService.getLoggerData()
+            .then(function (data) { return newData = data; });
+        if (newData !== this.dataset) {
+            this.setData(newData);
         }
     };
     //anytime you want to ADD a new client you have to use "addSeries()"
@@ -131,18 +127,18 @@ var SetChart = (function () {
         });
     };
     SetChart.prototype.setData = function (incomingData, filter) {
-        console.log(incomingData);
+        if (this.initFlag === true) {
+            console.log("Updating using data: " + incomingData);
+        }
         // this if statement should only be true on init
         if (incomingData) {
             this.dataset = incomingData;
             this.dataset = this.dataset.slice();
-            this.initFlag = true;
+            if (this.initFlag === false)
+                this.initFlag = true;
         }
-        //  if( !incomingData )
-        //  {
-        //    this.loggerService.getLoggerData()
-        //   .then( dataset => this.setData(dataset) );
-        //  }
+        else
+            (console.log('IncomingData parameter of setData() not defined'));
         // filter time, then client, then node
         if (this.timeFilterC != "ALL") {
             this.filterTime();
@@ -320,24 +316,6 @@ var SetChart = (function () {
         for (var k = 0; k < this.incomingOptions.series.length; k++) {
             this.chart.series[k].update(this.incomingOptions.series[k]);
         }
-    };
-    // public updateData () {
-    //   this.chart.chart.labels = this.barChartLabels.slice();
-    //   this.chart.chart.datasets = this.barChartData.splice(this.barChartData.length,1);
-    // }
-    // THE FOLLOWING FUNCTIONS ARE LEFTOVER FROM THE ng2-charts examples I used to create this Component, none are being used
-    SetChart.prototype.chartClicked = function (e) {
-        console.log(e);
-    };
-    SetChart.prototype.chartHovered = function (e) {
-        console.log(e);
-    };
-    // events
-    SetChart.prototype.barChartClicked = function (e) {
-        console.log(e);
-    };
-    SetChart.prototype.barChartHovered = function (e) {
-        console.log(e);
     };
     return SetChart;
 }());
