@@ -1,8 +1,8 @@
 export class Dataset {
 
-    _id: number;
+    _id: string;
     client: string;
-    time: string;
+    time?: string;
     node?: string;
     message: string
 }

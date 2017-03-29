@@ -25,8 +25,8 @@ var LoggerService = (function () {
         return this.http.get(this.loggerUrl)
             .toPromise()
             .then(function (response) {
-            console.log("logger response " + response.json().data);
-            return response.json().data;
+            console.log("logger response " + response.json());
+            return response.json();
         })
             .catch(this.handleError);
     };

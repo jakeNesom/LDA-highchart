@@ -22,10 +22,11 @@ export class LoggerService {
         
         return this.http.get(this.loggerUrl)
             .toPromise()
-            .then( function( response ) { 
-                console.log("logger response " + response.json().data);
-                return response.json().data as Dataset[] 
+             .then( function( response ) { 
+                 console.log("logger response " + response.json());
+                 return response.json() as Dataset[]; 
             })  
+            //.then(response => response.json().data as Dataset[])
             .catch(this.handleError);
     }
 
