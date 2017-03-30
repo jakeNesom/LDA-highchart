@@ -164,12 +164,16 @@ var SetChart = (function () {
     };
     SetChart.prototype.filterTime = function () {
         var data = this.dataset;
-        var currentTime = ["12", "31", "00"];
-        var currentMinutes = parseInt(currentTime[1]);
+        var d = new Date(); //date
+        var hoursMinutes = d.getHours() + ":" + d.getMinutes(); //get hours and minutes from date
+        var currentTime = hoursMinutes.split(":");
+        var currentHoursInMinutes = parseInt(currentTime[0]) * 60;
+        var currentMinutes = parseInt(currentTime[1]) + currentHoursInMinutes;
         var i = 0;
         while (i < data.length) {
             var time = data[i].time.split(":");
-            var minutes = parseInt(time[1]);
+            var hoursInMinutes = parseInt(time[0]) * 60;
+            var minutes = parseInt(time[1]) + hoursInMinutes;
             if (this.timeFilterC == "Last 5") {
                 if (minutes <= (currentMinutes - 5)) {
                     data.splice(i, 1);

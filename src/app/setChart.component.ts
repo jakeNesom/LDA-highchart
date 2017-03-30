@@ -221,14 +221,18 @@ export class SetChart {
 private filterTime () {
 
   let data = this.dataset;
-  let currentTime = ["12", "31", "00"];
-  let currentMinutes = parseInt(currentTime[1]);
+  let d = new Date();  //date
+  let hoursMinutes = d.getHours() + ":" + d.getMinutes();  //get hours and minutes from date
+  let currentTime = hoursMinutes.split(":"); 
+  let currentHoursInMinutes = parseInt(currentTime[0]) * 60;
+  let currentMinutes = parseInt(currentTime[1]) + currentHoursInMinutes;
 
   let i = 0;
   while (i < data.length)
   {
     let time = data[i].time.split(":");
-    let minutes = parseInt(time[1]);
+    let hoursInMinutes = parseInt(time[0]) * 60;
+    let minutes = parseInt(time[1]) + hoursInMinutes;
     if( this.timeFilterC == "Last 5")
     {
       if( minutes <= (currentMinutes - 5) ) 
