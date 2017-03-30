@@ -55,11 +55,10 @@ export class SetChart {
       
     }
 
-    // if( this.activelyLookForDataC == true )
-    // {
-      
-    //   this.lookForNewData();
-    // }
+    for (let key in changes)
+    {
+      if(key == "activelyLookForData") { this.lookForNewData(); }
+    }
     
   }
   //incoming data from loggingService Get request

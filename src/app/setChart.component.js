@@ -94,10 +94,11 @@ var SetChart = (function () {
             this.loggerService.getLoggerData()
                 .then(function (dataset) { return _this.setData(dataset); });
         }
-        // if( this.activelyLookForDataC == true )
-        // {
-        //   this.lookForNewData();
-        // }
+        for (var key in changes) {
+            if (key == "activelyLookForData") {
+                this.lookForNewData();
+            }
+        }
     };
     SetChart.prototype.saveInstance = function (chartInstance) {
         this.chart = chartInstance;
