@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 //import { ChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { trigger, state, style, animate, transition }  from '@angular/animations';
 
 
 //import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -18,7 +19,8 @@ import { LoggerService } from "./loggerdata.service";
 import { ChartModule } from 'angular2-highcharts';
 
 @NgModule({
-  imports:      [ 
+  imports:      [
+    BrowserAnimationsModule,
     BrowserModule,
     //ChartsModule,
     FormsModule,

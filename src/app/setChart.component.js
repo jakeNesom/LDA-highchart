@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_2 = require("@angular/core");
+// For window animations
+var animations_1 = require("@angular/animations");
 var loggerdata_service_1 = require("./loggerdata.service");
 //ng on changes
 //http://stackoverflow.com/questions/35823698/how-to-make-ngonchanges-work-in-angular2
@@ -22,6 +24,8 @@ var SetChart = (function () {
         this.loggerService = loggerService;
         this.sanitizer = sanitizer;
         this._applicationRef = _applicationRef;
+        // Menu animation
+        this.isVisible = false;
         //incoming data from loggingService Get request
         this.dataset = [];
         //public clientTotals:any[] = [];
@@ -322,6 +326,16 @@ var SetChart = (function () {
             this.chart.series[k].update(this.incomingOptions.series[k]);
         }
     };
+    SetChart.prototype.changeVisible = function () {
+        if (this.isVisible == true) {
+            this.isVisible = false;
+            console.log("is visible: " + this.isVisible);
+        }
+        else {
+            this.isVisible = true;
+            console.log("is visible: " + this.isVisible);
+        }
+    };
     return SetChart;
 }());
 __decorate([
@@ -343,6 +357,17 @@ __decorate([
 SetChart = __decorate([
     core_1.Component({
         selector: 'setChart',
+        animations: [
+            animations_1.trigger('visibilityChanged', [
+                animations_1.state('1', animations_1.style({ opacity: 1, })),
+                animations_1.state('0', animations_1.style({ display: 'none', height: 10, opacity: 0, })),
+                animations_1.transition('1 => 0', [
+                    //style({height: 10, opacity: 0}),
+                    animations_1.animate('500ms'),
+                ]),
+                animations_1.transition('0 => 1', animations_1.animate('800ms'))
+            ])
+        ],
         styles: ["\n      chart {\n        display:block;\n      }\n  "],
         templateUrl: 'app/views/setchart.html',
     }),

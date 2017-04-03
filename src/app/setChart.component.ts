@@ -1,7 +1,11 @@
 import { Component, OnInit, PipeTransform, Pipe, Input, OnChanges, SimpleChange,
-        Output, EventEmitter, ChangeDetectionStrategy, ElementRef, ViewChild} from '@angular/core';
+        Output, EventEmitter, ChangeDetectionStrategy, ElementRef, ViewChild,
+      } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { ApplicationRef } from '@angular/core';
+// For window animations
+import {  trigger, state, animate, transition, style} from '@angular/animations';
+
 
 import { LoggerService } from './loggerdata.service';
 import { Dataset } from './definitions/dataset';
@@ -13,6 +17,17 @@ import { DisplayComponent } from './display.component';
 
 @Component({
   selector: 'setChart',
+  animations: [
+    trigger('visibilityChanged', [
+      state('1' , style({ opacity: 1, /*transform: 'scale(1.0)'*/ })),
+      state('0', style({ display:'none', height: 10, opacity: 0, /*transform: 'scale(0.0)'*/  })),
+      transition('1 => 0', [
+      //style({height: 10, opacity: 0}),
+      animate('500ms'),
+      ]), 
+      transition('0 => 1', animate('800ms'))
+    ])
+  ],
   styles: [`
       chart {
         display:block;
@@ -61,6 +76,9 @@ export class SetChart {
     }
     
   }
+  // Menu animation
+  public isVisible: boolean = false;
+  
   //incoming data from loggingService Get request
   public dataset:Dataset[] = [];
 
@@ -448,5 +466,17 @@ private setNodeLabels(incomingData:any) {
    
   }
  
-   
+  public changeVisible()
+  {
+    if( this.isVisible == true) 
+    { 
+      this.isVisible = false;
+      console.log("is visible: " + this.isVisible ) 
+    }
+    else 
+    {
+      this.isVisible = true; 
+       console.log("is visible: " + this.isVisible )
+    }
+  }
 }

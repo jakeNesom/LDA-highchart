@@ -11,6 +11,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 //import { ChartsModule } from 'ng2-charts';
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
+var animations_1 = require("@angular/platform-browser/animations");
 var app_component_1 = require("./app.component");
 var nav_component_1 = require("./nav.component");
 var setChart_component_1 = require("./setChart.component");
@@ -26,6 +27,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [
+            animations_1.BrowserAnimationsModule,
             platform_browser_1.BrowserModule,
             //ChartsModule,
             forms_1.FormsModule,

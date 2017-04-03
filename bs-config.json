@@ -6,5 +6,5 @@
     }
   },
   "browser": ["chrome"],
-  "port": 3035
+  "port": 3037
 }
