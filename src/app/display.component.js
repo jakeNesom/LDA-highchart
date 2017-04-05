@@ -29,6 +29,7 @@ var DisplayComponent = (function () {
         this.currentNode = "ALL";
         this.timeFilter = "ALL";
         this.activelyLookForData = false;
+        this.intervalStarted = false;
         this.allData = {
             clientTotals: [{ client: "", total: "" }],
             clientList: [],
@@ -103,6 +104,44 @@ var DisplayComponent = (function () {
             setTimeout(function () {
                 _this.activelyLookForData = false;
             }, 3000);
+        }
+    };
+    DisplayComponent.prototype.intervalCheckNewData = function () {
+        // because setInterval acts on the window, any functions inside
+        // lose their association with DisplayComponent so we create 
+        // _this which points to "DisplayComponent"
+        var _this = this;
+        this.myInterval = setInterval(function () {
+            // if statement toggle triggers setChart Component OnChange()
+            // to force it to get new data
+            if (_this.activelyLookForData == false) {
+                _this.activelyLookForData = true;
+            }
+            else {
+                _this.activelyLookForData = false;
+            }
+            console.log("Interval Iteration");
+            _this.getDataFromService();
+        }, 5000);
+    };
+    DisplayComponent.prototype.getDataFromService = function () {
+        var _this = this;
+        this.loggerService.getLoggerData()
+            .then(function (dataset) { return _this.setData(dataset); });
+    };
+    DisplayComponent.prototype.stopIntervalCheckNewData = function () {
+        clearInterval(this.myInterval);
+        console.log("Interval cleared");
+        this.activelyLookForData = false;
+    };
+    DisplayComponent.prototype.toggleInterval = function () {
+        if (this.intervalStarted == false) {
+            this.intervalStarted = true;
+            this.intervalCheckNewData();
+        }
+        else {
+            this.intervalStarted = false;
+            this.stopIntervalCheckNewData();
         }
     };
     DisplayComponent.prototype.resetSelect = function () {

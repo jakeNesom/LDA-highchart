@@ -196,7 +196,7 @@ export class SetChart {
   private setData(incomingData?:any, filter?:any ):void {
 
     if(this.initFlag === true) {
-     console.log("Updating using data: " + incomingData);
+     console.log("initFlag = True setchart.setdata() fired");
     }
      
      // this if statement should only be true on init

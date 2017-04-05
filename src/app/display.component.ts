@@ -27,6 +27,8 @@ export class DisplayComponent  {
       [client: "", timeCat:(1-4 value), time: "", node: ""]
     }
  */
+
+ 
   public dataset:Dataset[] = [];
   public clientTotals:any = {};
   public clientList:string[] = [];
@@ -36,7 +38,8 @@ export class DisplayComponent  {
   public timeFilter = "ALL";
   
   public activelyLookForData: boolean = false;
-
+  public myInterval: any;
+  public intervalStarted: boolean = false;
   
   public allData = {
     clientTotals:<any>[{client: "", total: ""}],
@@ -158,6 +161,53 @@ export class DisplayComponent  {
     }
   }
 
+  intervalCheckNewData () {
+
+    // because setInterval acts on the window, any functions inside
+    // lose their association with DisplayComponent so we create 
+    // _this which points to "DisplayComponent"
+    var _this = this;
+    this.myInterval = setInterval(function () 
+    { 
+      // if statement toggle triggers setChart Component OnChange()
+      // to force it to get new data
+      if(_this.activelyLookForData == false)
+      {
+        _this.activelyLookForData = true;
+      } else { _this.activelyLookForData = false; }
+      
+      console.log("Interval Iteration");
+      _this.getDataFromService();
+      
+    
+    }, 5000);
+  }
+
+  getDataFromService () {
+     this.loggerService.getLoggerData()
+        .then(dataset => this.setData(dataset) );
+       
+  }
+
+  stopIntervalCheckNewData () {
+    clearInterval(this.myInterval);
+    console.log("Interval cleared");
+    this.activelyLookForData = false;
+  }
+
+  toggleInterval () {
+
+    if(this.intervalStarted == false )
+    {
+      this.intervalStarted = true;
+      this.intervalCheckNewData();
+    }
+    else {
+      this.intervalStarted = false;
+      this.stopIntervalCheckNewData();
+    }
+
+  }
   resetSelect ()
   {
     this.currentClient = "ALL";
