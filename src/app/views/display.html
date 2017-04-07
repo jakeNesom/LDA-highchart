@@ -1,3 +1,28 @@
+<div class="header-panel">
+    <div class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><i class="fa fa-line-chart fa-lg" aria-hidden="true"></i>&nbsp;nodejs logging stats</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+            
+                <ul class="nav navbar-nav navbar-right">
+                    <li><button type="button" class="btn btn-default" 
+                        data-container="body" data-toggle="popover" data-placement="bottom" 
+                        data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Bottom</button></li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div class="container-fluid main">
+
 <div class="row">
          <div class="col-sm-4 col-lg-3 col-sm-offset-1 col-lg-offset-1">
            <div class="panel panel-default">
@@ -10,10 +35,10 @@
                             <span *ngIf='activelyLookForData'> <span style="color:white;"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> &nbsp; Refreshing</span> </span>
                             <span *ngIf='!activelyLookForData'> <span style="color:black"> Refresh Data </span> </span>
                         </div>-->
-                        <div (click)="toggleInterval()" [ngClass]="intervalStarted == true ? 'btn-warning' : 'btn-default' " class="btn btn-sm btn-raised active">
+                        <a href="javascript:void(0)" (click)="toggleInterval()" [ngClass]="intervalStarted == true ? 'btn-warning' : 'btn-default' " class="btn btn-sm btn-raised active">
                             <span *ngIf='intervalStarted'> <span style="color:white;"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> &nbsp; Stop Refresh</span> </span>
                             <span *ngIf='!intervalStarted'> <span style="color:black"> Interval Refresh </span> </span>
-                        </div>
+                        </a>
                 <form>        
                         <div class="form-group">
                             <label for="clientSelect" class="col-md-2 control-label">Select Client</label>
@@ -43,7 +68,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="reset" class="btn btn-sm btn-primary" (click)="resetSelect()" 
+                            <button href='javascript:void(0)' type="reset" class="btn btn-sm btn-primary" (click)="resetSelect()" 
                                 for="resetSelect">Reset</button>
                         </div>
                     </form>
@@ -78,3 +103,5 @@
     <div class="row">
        
     </div> <!-- end of row -->
+
+    </div> <!-- end of lower container -->

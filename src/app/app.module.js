@@ -13,7 +13,7 @@ var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var animations_1 = require("@angular/platform-browser/animations");
 var app_component_1 = require("./app.component");
-var nav_component_1 = require("./nav.component");
+//import { NavComponent }  from './nav.component';
 var setChart_component_1 = require("./setChart.component");
 var display_component_1 = require("./display.component");
 var loggerdata_service_1 = require("./loggerdata.service");
@@ -37,7 +37,7 @@ AppModule = __decorate([
         ],
         declarations: [
             app_component_1.AppComponent,
-            nav_component_1.NavComponent,
+            //NavComponent,
             setChart_component_1.SetChart,
             display_component_1.DisplayComponent,
         ],

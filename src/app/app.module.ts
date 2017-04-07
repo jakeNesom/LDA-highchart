@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InMemoryDataService } from './in-memory-data.service';
 
 import { AppComponent }  from './app.component';
-import { NavComponent }  from './nav.component';
+//import { NavComponent }  from './nav.component';
 import { SetChart } from "./setChart.component";
 import { DisplayComponent } from "./display.component";
 import { LoggerService } from "./loggerdata.service";
@@ -30,7 +30,7 @@ import { ChartModule } from 'angular2-highcharts';
     ],
   declarations: [ 
     AppComponent,
-    NavComponent,
+    //NavComponent,
     SetChart,
     DisplayComponent,
     //Chart2
