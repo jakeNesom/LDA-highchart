@@ -34,8 +34,8 @@
         </div>
      </div> <!-- end of well -->
      <div class="panel">
-       <div class="panel-heading">
-         <div class="btn btn-primary btn-md" (click)="changeVisible()" >Show Data</div>
+       <div class="panel-heading btn btn-primary btn-block">
+         <div (click)="changeVisible()" style="font-size:15px;"> <i  class="fa fa-chevron-down fa-fw  " aria-hidden="true"></i>Show Data </div>
        </div>
         <div [@visibilityChanged]="isVisible" >
           <div class="panel-body">

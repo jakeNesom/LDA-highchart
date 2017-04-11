@@ -2,19 +2,18 @@
     <div class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
+                
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><i class="fa fa-line-chart fa-lg" aria-hidden="true"></i>&nbsp;nodejs logging stats</a>
+                <a class="navbar-brand" href="#"><i class="fa fa-line-chart fa-lg" aria-hidden="true"></i>&nbsp;node.js load balance stats</a>
             </div>
             <div class="navbar-collapse collapse navbar-responsive-collapse">
             
                 <ul class="nav navbar-nav navbar-right">
-                    <li><button type="button" class="btn btn-default" 
-                        data-container="body" data-toggle="popover" data-placement="bottom" 
-                        data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Bottom</button></li>
+                   
                 </ul>
             </div>
             
@@ -22,10 +21,71 @@
     </div>
 </div>
 <div class="container-fluid main">
-
+<div class="row">
+    <div class="col-sm-3">
+       
+    </div>
+</div>
+<div class="row">
+    <div class="panel" id="popOptions">
+    <div class="panel-body">    
+    <div class="col-sm-1">
+         <div style="margin-top:6px;" href="#" (click)="toggleInterval()" [ngClass]="intervalStarted == true ? 'btn-default' : 'btn-primary' " class="btn btn-fab btn-fab-mini">
+                    <span *ngIf='intervalStarted'><span style="color:limegreen; margin-top:-15px;"><i class="circleIcon fa fa-refresh fa-spin" aria-hidden="true"></i></span></span>
+                    <span *ngIf='!intervalStarted'><span style="color:white;"><i class="fa fa-refresh fa-fw material-icons" aria-hidden="true"></i></span></span>
+                  </div>
+    </div>
+    <form>
+    <div class="col-sm-3">
+               
+        
+                       
+                            <label for="clientSelect" class="col-md-2 control-label">Select Client</label>
+                            <div class="col-md-10">
+                                <select id="clientSelect" class="form-control" (change)="clientChange($event.target.value)">
+                                <option *ngFor="let client of allData.clientList" >{{client}}</option>
+                                
+                                </select>
+                            </div>
+                        
+    </div>
+    <div class="col-sm-3">
+                        
+                            <label for="node" class="col-md-2 control-label">Node: </label>
+                            <div class="col-md-10">
+                                <select id="node" class="form-control" (change)="nodeChange($event.target.value)">
+                                <option *ngFor="let node of allData.nodeList" >{{node}}</option>
+                                
+                                </select>
+                            </div>
+                        
+    </div>
+    <div class="col-sm-3">
+                       
+                            <label for="timeframe" class="col-md-2 control-label">Time: </label>
+                            <div class="col-md-10">
+                                <select id="timeframe" class="form-control" (change)="timeChange($event.target.value)">
+                                <option *ngFor="let time of allData.timeList" >{{time}}</option>
+                                
+                                </select>
+                            </div>
+                       
+    </div>
+    <div class="col-sm-2">
+                       
+                            <button href='javascript:void(0)' type="reset" class="btn btn-sm btn-primary" (click)="resetSelect()" 
+                                for="resetSelect">Reset</button>
+                        
+    </div>
+                    </form>
+    </div>
+                 
+    </div>
+    
+</div>
 <div class="row">
          <div class="col-sm-4 col-lg-3 col-sm-offset-1 col-lg-offset-1">
-           <div class="panel panel-default">
+           <!--<div class="panel panel-default">
                 <div class="panel-heading">
                     <h5>Options</h5>
                 </div>
@@ -35,7 +95,7 @@
                             <span *ngIf='activelyLookForData'> <span style="color:white;"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> &nbsp; Refreshing</span> </span>
                             <span *ngIf='!activelyLookForData'> <span style="color:black"> Refresh Data </span> </span>
                         </div>-->
-                        <a href="javascript:void(0)" (click)="toggleInterval()" [ngClass]="intervalStarted == true ? 'btn-warning' : 'btn-default' " class="btn btn-sm btn-raised active">
+                        <!--<a href="javascript:void(0)" (click)="toggleInterval()" [ngClass]="intervalStarted == true ? 'btn-warning' : 'btn-default' " class="btn btn-sm btn-raised active">
                             <span *ngIf='intervalStarted'> <span style="color:white;"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> &nbsp; Stop Refresh</span> </span>
                             <span *ngIf='!intervalStarted'> <span style="color:black"> Interval Refresh </span> </span>
                         </a>
@@ -72,9 +132,9 @@
                                 for="resetSelect">Reset</button>
                         </div>
                     </form>
-                </div> <!-- end of panel-body -->
+                </div>  end of panel-body  -->
                 
-            </div> <!-- end of panel-default -->
+           <!--  </div> -->  <!-- end of panel-default -->
            
         </div> <!-- end of column -->
       
