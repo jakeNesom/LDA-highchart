@@ -1,4 +1,4 @@
-<div id="box">
+<div id="box" [@flyOutIn]="flyOutIn" (click)="toggleFilters()" >
     <div id="floatDiv">
         <span id="text">
             <i class="fa fa-filter fa-2x" aria-hidden="true"></i>
@@ -43,11 +43,11 @@
     </div>
 </div>
 <div class="row">
-    <div class="panel" id="popOptions">
+    <div [@hideFilters]="hideShow" class="panel" id="popOptions">
     <div class="panel-body">    
     <div class="col-sm-1">
          <div>
-            <i id="timesCircle" class="fa fa-times-circle fa-2x fa-sw" aria-hidden="true"></i>
+            <i id="timesCircle" (click)="toggleFilters()"  class="fa fa-times-circle fa-2x fa-sw" aria-hidden="true"></i>
          </div>
     </div>
     <form>

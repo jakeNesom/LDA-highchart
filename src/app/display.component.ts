@@ -1,6 +1,7 @@
 import { Input, Component, OnInit, PipeTransform, Pipe, AfterContentInit, DoCheck} from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { LoggerService } from './loggerdata.service';
+import {  trigger, state, animate, transition, style} from '@angular/animations';
 
 import { Dataset } from './definitions/dataset';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
@@ -10,6 +11,36 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
   selector: 'displayComponent',
   templateUrl: `app/views/display.html`,
   styleUrls: ['app/css/display.css'],
+  animations: [
+     trigger('hideFilters', [
+      state('0' , style({ opacity: 1, /*transform: 'scale(1.0)'*/ })),
+      state('1', style({ display:'none', height: 0, opacity: 0, /*transform: 'scale(0.0)'*/  })),
+      transition('1 => 0', [
+      //style({height: 10, opacity: 0}),
+      animate('500ms'),
+      ]), 
+      transition('0 => 1', animate('500ms'))
+    ]),
+    trigger('flyOutIn', [
+    state('1', style({ transform: 'translate3d(0,0,0' })),
+    state('0', style({ transform: 'translate3d(-103%, 0,0)' })),
+    transition('1 => 0', 
+    
+      animate('0.4s 100ms ease-in-out')
+    
+    ),
+    transition( '0 => 1', 
+      animate( '0.4s 100ms ease-in-out' )
+    ),
+    // transition('0 => 1', [
+    //   animate('0.2s 10 ease-out', style({
+    //     opacity: 0,
+    //     transform: 'translateX(100%)'
+    //   }))
+    //])
+  ])
+
+  ]
   
   
 })
@@ -29,6 +60,14 @@ export class DisplayComponent  {
  */
 
  
+  /**** Animations ****/
+
+  public flyOutIn:boolean = true;
+  public hideShow:boolean = true;
+
+
+
+
   public dataset:Dataset[] = [];
   public clientTotals:any = {};
   public clientList:string[] = [];
@@ -217,5 +256,24 @@ export class DisplayComponent  {
     this.allData.currentClient = "ALL";
     this.allData.currentNode = "ALL";
   }
+
+ /** Animations  **/
+
+ toggleFilters () {
+
+   if(this.hideShow == true && this.flyOutIn == true ) 
+   { 
+     this.flyOutIn = false;
+     let variable = this.flyOutIn;
+     this.hideShow = false;
+     console.log("FlyOutIn == " + variable)
+   }
+   else { 
+     this.hideShow = true; 
+     this.flyOutIn = true;
+  }
+   console.log("toggle activated");
+ }
+
 
  }

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var loggerdata_service_1 = require("./loggerdata.service");
+var animations_1 = require("@angular/animations");
 var DisplayComponent = (function () {
     function DisplayComponent(loggerService) {
         this.loggerService = loggerService;
@@ -22,6 +23,9 @@ var DisplayComponent = (function () {
              [client: "", timeCat:(1-4 value), time: "", node: ""]
            }
         */
+        /**** Animations ****/
+        this.flyOutIn = true;
+        this.hideShow = true;
         this.dataset = [];
         this.clientTotals = {};
         this.clientList = [];
@@ -152,6 +156,20 @@ var DisplayComponent = (function () {
         this.allData.currentClient = "ALL";
         this.allData.currentNode = "ALL";
     };
+    /** Animations  **/
+    DisplayComponent.prototype.toggleFilters = function () {
+        if (this.hideShow == true && this.flyOutIn == true) {
+            this.flyOutIn = false;
+            var variable = this.flyOutIn;
+            this.hideShow = false;
+            console.log("FlyOutIn == " + variable);
+        }
+        else {
+            this.hideShow = true;
+            this.flyOutIn = true;
+        }
+        console.log("toggle activated");
+    };
     return DisplayComponent;
 }());
 DisplayComponent = __decorate([
@@ -159,6 +177,23 @@ DisplayComponent = __decorate([
         selector: 'displayComponent',
         templateUrl: "app/views/display.html",
         styleUrls: ['app/css/display.css'],
+        animations: [
+            animations_1.trigger('hideFilters', [
+                animations_1.state('0', animations_1.style({ opacity: 1, })),
+                animations_1.state('1', animations_1.style({ display: 'none', height: 0, opacity: 0, })),
+                animations_1.transition('1 => 0', [
+                    //style({height: 10, opacity: 0}),
+                    animations_1.animate('500ms'),
+                ]),
+                animations_1.transition('0 => 1', animations_1.animate('500ms'))
+            ]),
+            animations_1.trigger('flyOutIn', [
+                animations_1.state('1', animations_1.style({ transform: 'translate3d(0,0,0' })),
+                animations_1.state('0', animations_1.style({ transform: 'translate3d(-103%, 0,0)' })),
+                animations_1.transition('1 => 0', animations_1.animate('0.4s 100ms ease-in-out')),
+                animations_1.transition('0 => 1', animations_1.animate('0.4s 100ms ease-in-out')),
+            ])
+        ]
     }),
     __metadata("design:paramtypes", [loggerdata_service_1.LoggerService])
 ], DisplayComponent);
