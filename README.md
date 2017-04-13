@@ -6,7 +6,7 @@ Since i changed node_modules files those changes aren't part of the commit and y
 
 # Puprpose
 
-This project was created to display some simple stats from a node.js/mongo db application.  As clients log information via the node.js app into the mongoDB, This angular app acceses an express get API to view and chart the interactions
+This project was created to display some simple stats from a node.js/mongo db application.  As clients log information via the node.js app into the mongoDB, This angular app accesses an express get API to view and chart the interactions
 
 Information charted: 
  - Client Name
@@ -24,7 +24,7 @@ Information charted:
   
  - Custom Angular Animations are used to show/hide the incoming data and filter menu
   
- - Custom Angular Filters are used to sort some dynamically created options lists (Still being tested)
+ - Custom Angular Pipes are used to sort some dynamically created options lists (Still being tested)
 
 
 

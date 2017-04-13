@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-logging-display",
+  "name": "nodejs-loadbalance-stats",
   "version": "1.0.0",
   "description": "a visual display for statistics from a nodeJS logger",
   "scripts": {

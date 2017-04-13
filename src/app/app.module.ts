@@ -18,6 +18,7 @@ import { LoggerService } from "./loggerdata.service";
 //import { Chart2 } from './chart2.component';
 import { ChartModule } from 'angular2-highcharts';
 
+
 @NgModule({
   imports:      [
     BrowserAnimationsModule,
@@ -33,6 +34,7 @@ import { ChartModule } from 'angular2-highcharts';
     //NavComponent,
     SetChart,
     DisplayComponent,
+    
     //Chart2
     ],
   providers: [LoggerService],

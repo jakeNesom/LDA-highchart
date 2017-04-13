@@ -68,6 +68,7 @@ var DisplayComponent = (function () {
                 items.push(this.dataset[x].client);
             }
         }
+        items.sort();
         this.allData.clientList = items;
     };
     DisplayComponent.prototype.setNodeList = function () {
@@ -80,6 +81,7 @@ var DisplayComponent = (function () {
                 items.push(this.dataset[x].node);
             }
         }
+        items.sort();
         this.allData.nodeList = items;
     };
     DisplayComponent.prototype.clientChange = function (value) {

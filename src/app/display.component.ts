@@ -153,7 +153,7 @@ export class DisplayComponent  {
           
         }
       }
-
+      items.sort();
       this.allData.clientList = items;
   }
   
@@ -174,6 +174,7 @@ export class DisplayComponent  {
         }
       }
 
+      items.sort();
       this.allData.nodeList = items;
   }
 
