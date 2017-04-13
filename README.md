@@ -15,7 +15,7 @@ Information charted:
 
  # Angular modules / techniques used
 
- - A custom service handles the http requess with the node.js app
+ - A custom service handles the http requests with the node.js app
 
  - Angular 2 HighCharts is used for graphically representing the data
     - https://www.npmjs.com/package/angular2-highcharts
