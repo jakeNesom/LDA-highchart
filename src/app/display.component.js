@@ -179,19 +179,36 @@ DisplayComponent = __decorate([
         styleUrls: ['app/css/display.css'],
         animations: [
             animations_1.trigger('hideFilters', [
-                animations_1.state('0', animations_1.style({ opacity: 1, })),
-                animations_1.state('1', animations_1.style({ display: 'none', height: 0, opacity: 0, })),
-                animations_1.transition('1 => 0', [
-                    //style({height: 10, opacity: 0}),
-                    animations_1.animate('500ms'),
-                ]),
-                animations_1.transition('0 => 1', animations_1.animate('500ms'))
+                animations_1.state('0', animations_1.style({ transform: 'translate3d(0,0,0)' })),
+                animations_1.state('1', animations_1.style({ transform: 'translate3d(0, -200%, 0)', display: 'none' })),
+                // state('0' , style({ opacity: 1, /*transform: 'scale(1.0)'*/ })),
+                // state('1', style({ display:'none', height: 0, opacity: 0, /*transform: 'scale(0.0)'*/  })),
+                animations_1.transition('1 => 0', 
+                //style({height: 10, opacity: 0}),
+                animations_1.animate('1000ms 500ms ease-in', animations_1.keyframes([
+                    animations_1.style({ transform: 'translate3d(0, -200%, 0)', offset: 0 }),
+                    animations_1.style({ transform: 'translate3d(0, 3%, 0)', offset: 0.6 }),
+                    animations_1.style({ transform: 'translate3d(0, 0, 0)', offset: 1.0 })
+                ]))),
+                animations_1.transition('0 => 1', animations_1.animate('1000ms 500ms ease-out', animations_1.keyframes([
+                    animations_1.style({ transform: 'translate3d(0, 0, 0)', offset: 0 }),
+                    animations_1.style({ transform: 'translate3d(0, 3%, 0)', offset: 0.3 }),
+                    animations_1.style({ transform: 'translate3d(0, -200%, 0)', offset: 1.0 })
+                ])))
             ]),
             animations_1.trigger('flyOutIn', [
-                animations_1.state('1', animations_1.style({ transform: 'translate3d(0,0,0' })),
+                animations_1.state('1', animations_1.style({ transform: 'translate3d(0,0,0)' })),
                 animations_1.state('0', animations_1.style({ transform: 'translate3d(-103%, 0,0)' })),
-                animations_1.transition('1 => 0', animations_1.animate('0.4s 100ms ease-in-out')),
-                animations_1.transition('0 => 1', animations_1.animate('0.4s 100ms ease-in-out')),
+                animations_1.transition('1 => 0', animations_1.animate('0.4s 100ms ease-out', animations_1.keyframes([
+                    animations_1.style({ transform: 'translate3d(0,0,0)', offset: 0 }),
+                    animations_1.style({ transform: 'translateX(20px)', offset: 0.3 }),
+                    animations_1.style({ transform: 'translate3d(-103%,0,0)', offset: 1.0 })
+                ]))),
+                animations_1.transition('0 => 1', animations_1.animate('0.4s 1000ms ease-in', animations_1.keyframes([
+                    animations_1.style({ transform: 'translate3d(-103%,0,0)', offset: 0 }),
+                    animations_1.style({ transform: 'translate3d(15px, 0, 0)', offset: 0.3 }),
+                    animations_1.style({ transform: 'translate3d(0,0,0)', offset: 1.0 })
+                ]))),
             ])
         ]
     }),
