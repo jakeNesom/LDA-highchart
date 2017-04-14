@@ -105,59 +105,10 @@
     
 </div>
 <div class="row">
-         <div class="col-sm-4 col-lg-3 col-sm-offset-1 col-lg-offset-1">
-           <!--<div class="panel panel-default">
-                <div class="panel-heading">
-                    <h5>Options</h5>
-                </div>
-                <div class="panel-body">
-                
-                        <!--<div (click)="toggleCheck()" [ngClass]="activelyLookForData == true ? 'btn-success' : 'btn-default' " class="btn btn-sm btn-raised active">
-                            <span *ngIf='activelyLookForData'> <span style="color:white;"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> &nbsp; Refreshing</span> </span>
-                            <span *ngIf='!activelyLookForData'> <span style="color:black"> Refresh Data </span> </span>
-                        </div>-->
-                        <!--<a href="javascript:void(0)" (click)="toggleInterval()" [ngClass]="intervalStarted == true ? 'btn-warning' : 'btn-default' " class="btn btn-sm btn-raised active">
-                            <span *ngIf='intervalStarted'> <span style="color:white;"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> &nbsp; Stop Refresh</span> </span>
-                            <span *ngIf='!intervalStarted'> <span style="color:black"> Interval Refresh </span> </span>
-                        </a>
-                <form>        
-                        <div class="form-group">
-                            <label for="clientSelect" class="col-md-2 control-label">Select Client</label>
-                            <div class="col-md-10">
-                                <select id="clientSelect" class="form-control" (change)="clientChange($event.target.value)">
-                                <option *ngFor="let client of allData.clientList" >{{client}}</option>
-                                
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="node" class="col-md-2 control-label">Node: </label>
-                            <div class="col-md-10">
-                                <select id="node" class="form-control" (change)="nodeChange($event.target.value)">
-                                <option *ngFor="let node of allData.nodeList" >{{node}}</option>
-                                
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="timeframe" class="col-md-2 control-label">Time: </label>
-                            <div class="col-md-10">
-                                <select id="timeframe" class="form-control" (change)="timeChange($event.target.value)">
-                                <option *ngFor="let time of allData.timeList" >{{time}}</option>
-                                
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button href='javascript:void(0)' type="reset" class="btn btn-sm btn-primary" (click)="resetSelect()" 
-                                for="resetSelect">Reset</button>
-                        </div>
-                    </form>
-                </div>  end of panel-body  -->
-                
-           <!--  </div> -->  <!-- end of panel-default -->
+        
+           <liveCount></liveCount>
            
-        </div> <!-- end of column -->
+      
       
 
                 <!-- <chart2 

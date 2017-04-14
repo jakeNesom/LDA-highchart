@@ -19,6 +19,7 @@ var display_component_1 = require("./display.component");
 var loggerdata_service_1 = require("./loggerdata.service");
 //import { Chart2 } from './chart2.component';
 var angular2_highcharts_1 = require("angular2-highcharts");
+var liveCount_component_1 = require("./liveCount.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -40,6 +41,8 @@ AppModule = __decorate([
             //NavComponent,
             setChart_component_1.SetChart,
             display_component_1.DisplayComponent,
+            liveCount_component_1.LiveCount
+            //Chart2
         ],
         providers: [loggerdata_service_1.LoggerService],
         bootstrap: [app_component_1.AppComponent],

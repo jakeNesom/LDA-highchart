@@ -17,7 +17,7 @@ import { DisplayComponent } from "./display.component";
 import { LoggerService } from "./loggerdata.service";
 //import { Chart2 } from './chart2.component';
 import { ChartModule } from 'angular2-highcharts';
-
+import { LiveCount } from './liveCount.component';
 
 @NgModule({
   imports:      [
@@ -34,7 +34,7 @@ import { ChartModule } from 'angular2-highcharts';
     //NavComponent,
     SetChart,
     DisplayComponent,
-    
+    LiveCount
     //Chart2
     ],
   providers: [LoggerService],
