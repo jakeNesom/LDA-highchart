@@ -39,10 +39,12 @@ constructor (private loggerService: LoggerService ) {
             type: 'area',
             animation: true, // don't animate in old IE
             marginRight: 10,
-            reflow: true,
+            
             style: {
-              "width": "100%"
-            }
+              "min-width": "300px"
+            },
+           
+            
         },
         title: {
             text: 'Live View'

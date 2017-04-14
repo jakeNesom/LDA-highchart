@@ -19,10 +19,9 @@ var LiveCount = (function () {
                 type: 'area',
                 animation: true,
                 marginRight: 10,
-                reflow: true,
                 style: {
-                    "width": "100%"
-                }
+                    "min-width": "300px"
+                },
             },
             title: {
                 text: 'Live View'
