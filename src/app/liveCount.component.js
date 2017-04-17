@@ -76,6 +76,9 @@ var LiveCount = (function () {
             if (key == "activelyLookForData") {
                 this.lookForNewData();
             }
+            if (key == "dataset") {
+                this.processData(changes[key]);
+            }
         }
     };
     LiveCount.prototype.ngOnInit = function () {
@@ -85,6 +88,10 @@ var LiveCount = (function () {
         this.chart = chartInstance;
     };
     LiveCount.prototype.lookForNewData = function () { };
+    LiveCount.prototype.processData = function (newData) {
+        console.log("liveCount.processData() fired ");
+        console.log("dataset: " + JSON.stringify(newData));
+    };
     LiveCount.prototype.startInterval = function () {
         var _this = this; // setInterval acts on document so it messes up "this" reference
         this.myInterval = setInterval(function () {
@@ -100,6 +107,10 @@ var LiveCount = (function () {
     };
     return LiveCount;
 }()); // end of component
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], LiveCount.prototype, "currentData", void 0);
 __decorate([
     core_1.Input(),
     __metadata("design:type", Boolean)

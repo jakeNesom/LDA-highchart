@@ -21,13 +21,19 @@ import { DisplayComponent } from './display.component';
 
 export class LiveCount {
 
+   @Input() currentData: any;
+
    @Input() activelyLookForDataC: boolean;
 
     ngOnChanges(changes: any []) {
       for (let key in changes)
       {
         if(key == "activelyLookForData") { this.lookForNewData(); }
+
+        if(key == "dataset") { this.processData(changes[key]); }
       }
+
+      
     }
 
 
@@ -125,6 +131,10 @@ saveInstance(chartInstance:any) {
 
 lookForNewData() {}
 
+processData (newData: any) {
+    console.log("liveCount.processData() fired ");
+    console.log("dataset: " + JSON.stringify(newData) );
+}
 
 
 
