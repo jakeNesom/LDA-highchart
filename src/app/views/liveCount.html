@@ -1,10 +1,11 @@
  <div class="col-sm-5 col-lg-4">
     <div class="well" style="width:100%;" >
  
-                <chart style="display:inherit;" [options]="options"
+                <chart style="display:inherit; height:95%;" [options]="options"
                     (load)="saveInstance($event.context)">
                 </chart>
  
+    <div class="btn btn-raised btn-sm btn-primary" (click)="stopInterval()">Stop</div>
     </div> <!-- end of well -->
 
   </div> 

@@ -24,7 +24,7 @@ var LiveCount = (function () {
                 },
             },
             title: {
-                text: 'Live View'
+                text: 'All nodes over time'
             },
             xAxis: {
                 type: 'datetime',
@@ -67,6 +67,7 @@ var LiveCount = (function () {
                         return data;
                     }())
                 },
+                {},
             ]
         };
     }
@@ -77,16 +78,25 @@ var LiveCount = (function () {
             }
         }
     };
+    LiveCount.prototype.ngOnInit = function () {
+        this.startInterval();
+    };
     LiveCount.prototype.saveInstance = function (chartInstance) {
         this.chart = chartInstance;
     };
     LiveCount.prototype.lookForNewData = function () { };
     LiveCount.prototype.startInterval = function () {
-        setInterval(function () {
+        var _this = this; // setInterval acts on document so it messes up "this" reference
+        this.myInterval = setInterval(function () {
             var x = (new Date()).getTime(), // current time
             y = Math.random();
-            this.chart.series[0].addPoint([x, y], true, true);
+            console.log("Interval Iteration");
+            _this.chart.series[0].addPoint([x, y], true, true);
         }, 1000);
+    };
+    LiveCount.prototype.stopInterval = function () {
+        clearInterval(this.myInterval);
+        console.log("interval cleared");
     };
     return LiveCount;
 }()); // end of component

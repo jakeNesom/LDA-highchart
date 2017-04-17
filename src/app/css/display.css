@@ -1,6 +1,14 @@
 
 
 
+#refreshButton {
+
+  
+  margin-top:11%;
+  margin-left:15px;
+}
+
+
 .circleIcon {
   
   position: relative;
@@ -33,13 +41,16 @@
 }
 
 #timesCircle {
-  margin-top: 10px;
+  margin-top: 15%;
   color: lightgrey;
 }
 #timesCircle:active {
-  margin-top: 12px;
+  margin-top: 16%;
   color: grey;
 }
+
+
+
 
 #box {
   position: absolute;
@@ -93,4 +104,42 @@
   line-height:70px;
   color:grey;
   font-size:20px;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+  #timesCircle {
+    margin-top:20px;
+  }
+
+  #timesCircle:active {
+    margin-top:20px;
+    transform:translate3d(2px, 2px, 0);
+  }
+
+  #refreshButton {
+    margin-top:0;
+    margin-bottom:0px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width:992px ) {
+
+  /*#timesCircle {
+    margin-top:20px;
+  }
+
+  #timesCircle:active {
+    margin-top:20px;
+    transform:translate3d(2px, 2px, 0);
+  }*/
+
+  #resetButton {
+    margin-top:50%;
+  }
+  #refreshButton {
+    margin-top:30%;
+    
+  }
 }

@@ -47,7 +47,7 @@ constructor (private loggerService: LoggerService ) {
             
         },
         title: {
-            text: 'Live View'
+            text: 'All nodes over time'
         },
         xAxis: {
             type: 'datetime',
@@ -96,6 +96,8 @@ constructor (private loggerService: LoggerService ) {
                 return data;
             }())
         },
+        {},
+
         ]
 
         
@@ -104,9 +106,15 @@ constructor (private loggerService: LoggerService ) {
   
 }
 
+
+ngOnInit(): void {
+
+    this.startInterval();
+}
 private options:any;
 private oldOptions:any;
 chart:any;
+public myInterval: any;
 
 saveInstance(chartInstance:any) {
   this.chart = chartInstance;
@@ -123,11 +131,20 @@ lookForNewData() {}
 
 startInterval () {
 
-  setInterval(function () {
+  var _this = this; // setInterval acts on document so it messes up "this" reference
+  this.myInterval = setInterval(function () {
                         var x = (new Date()).getTime(), // current time
                             y = Math.random();
-                        this.chart.series[0].addPoint([x, y], true, true);
+
+                            console.log("Interval Iteration");
+                        
+                        _this.chart.series[0].addPoint([x, y], true, true); 
                     }, 1000);
+}
+
+stopInterval() {
+    clearInterval(this.myInterval);
+    console.log("interval cleared");
 }
 
 } // end of component
