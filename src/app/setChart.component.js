@@ -30,6 +30,7 @@ var SetChart = (function () {
         this.dataset = [];
         //public clientTotals:any[] = [];
         this.clientTotals = {};
+        this.filterSet = {};
         this.filters = { client: "ANY", node: "ANY", time: "ANY" };
         this.clientLabels = [];
         this.nodeLabels = [];
@@ -335,6 +336,20 @@ var SetChart = (function () {
             this.isVisible = true;
             console.log("is visible: " + this.isVisible);
         }
+    };
+    SetChart.prototype.sendPost = function () {
+        var data = {
+            filter: {
+                startTime: "15:00",
+                stopTime: "15:45"
+            },
+        };
+        this.loggerService.getRange(data)
+            .subscribe(function (dataset) {
+            console.log(JSON.stringify(this.filterSet));
+            console.log("send post fired");
+            return this.filterSet = dataset;
+        }, function (error) { return console.log(error); });
     };
     return SetChart;
 }());

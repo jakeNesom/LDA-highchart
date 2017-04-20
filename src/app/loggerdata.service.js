@@ -12,11 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/map");
 var LoggerService = (function () {
     function LoggerService(http) {
         this.http = http;
         //private loggerUrl = 'api/loggerData';
         this.loggerUrl = 'http://localhost:3039/read/getall/';
+        this.filterUrl = 'http://localhost:3039/read/filterget';
     }
     LoggerService.prototype.getClients = function () {
         return;
@@ -29,6 +32,33 @@ var LoggerService = (function () {
             return response.json();
         })
             .catch(this.handleError);
+    };
+    LoggerService.prototype.getRangeA = function (filter) {
+        var filterStr = JSON.stringify(filter);
+        var url = this.filterUrl + '$filter=' + filterStr;
+        console.log(url);
+        return this.http.get(url)
+            .toPromise()
+            .then(function (response) {
+            console.log("Response from server: " + response);
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    // POST version
+    LoggerService.prototype.getRange = function (data) {
+        console.log("data beign sent " + JSON.stringify(data));
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        var url = this.filterUrl;
+        return this.http.post(url, data, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
+    LoggerService.prototype.extractData = function (res) {
+        console.log(".map filred, .extractData fired");
+        var body = res.json();
+        return body.data || {};
     };
     LoggerService.prototype.handleError = function (error) {
         console.error('An error occured', error);

@@ -39,13 +39,7 @@ var LiveCount = (function () {
                         color: '#808080'
                     }]
             },
-            tooltip: {
-                formatter: function () {
-                    return '<b>' + this.series.name + '</b><br/>' +
-                        this.chart.series[0].dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-                        this.chart.series[0].numberFormat(this.y, 2);
-                }
-            },
+            tooltip: {},
             legend: {
                 enabled: false
             },
@@ -99,7 +93,7 @@ var LiveCount = (function () {
             y = Math.random();
             console.log("Interval Iteration");
             _this.chart.series[0].addPoint([x, y], true, true);
-        }, 1000);
+        }, 10000);
     };
     LiveCount.prototype.stopInterval = function () {
         clearInterval(this.myInterval);

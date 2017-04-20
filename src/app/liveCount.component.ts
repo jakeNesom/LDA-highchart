@@ -71,12 +71,12 @@ constructor (private loggerService: LoggerService ) {
             }]
         },
         tooltip: {
-            formatter: function () {
-                return '<b>' + this.series.name + '</b><br/>' +
-                   this.chart.series[0].dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-                   this.chart.series[0].numberFormat(this.y, 2);
+            // formatter: function () {
+            //     return '<b>' + this.series.name + '</b><br/>' +
+            //        this.series.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+            //        this.series.numberFormat(this.y, 2);
               
-            }
+            // }
         },
         legend: {
             enabled: false
@@ -149,7 +149,7 @@ startInterval () {
                             console.log("Interval Iteration");
                         
                         _this.chart.series[0].addPoint([x, y], true, true); 
-                    }, 1000);
+                    }, 10000);
 }
 
 stopInterval() {

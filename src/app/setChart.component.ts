@@ -85,6 +85,8 @@ export class SetChart {
   //public clientTotals:any[] = [];
   public clientTotals:any = {};
 
+  public filterSet:any = {};
+
   public filters:any = {client:"ANY", node:"ANY", time:"ANY"};
   public clientLabels: any = [];
   public nodeLabels: any = []
@@ -479,4 +481,21 @@ private setNodeLabels(incomingData:any) {
        console.log("is visible: " + this.isVisible )
     }
   }
+
+  public sendPost() {
+      let data = {
+        filter : {
+        startTime : "15:00",
+        stopTime : "15:45"
+        },
+      };
+
+      this.loggerService.getRange(data)
+      .subscribe( function (dataset) { 
+                  console.log(JSON.stringify(this.filterSet) );
+                  console.log("send post fired");
+                  return this.filterSet = dataset},
+                  error => console.log(error) );
+    }
+  
 }
