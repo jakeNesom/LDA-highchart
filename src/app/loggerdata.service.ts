@@ -48,13 +48,13 @@ export class LoggerService {
     }
 
     // POST version
-    getRange(data: object): Observable <Dataset[]> {
-        console.log( "data beign sent " + JSON.stringify(data) );
+    getRange(data: object): Observable <any> {
+        console.log( "data being sent " + JSON.stringify(data) );
         let headers = new Headers({'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         const url = this.filterUrl;
 
-        return this.http.post(url, data, options)
+        return this.http.post(url, JSON.stringify(data), options)
             .map(this.extractData )
             .catch(this.handleError);
     }

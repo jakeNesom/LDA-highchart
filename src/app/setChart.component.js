@@ -339,10 +339,10 @@ var SetChart = (function () {
     };
     SetChart.prototype.sendPost = function () {
         var data = {
-            filter: {
-                startTime: "15:00",
-                stopTime: "15:45"
-            },
+            "data": {
+                "startTime": "15:00",
+                "stopTime": "15:45"
+            }
         };
         this.loggerService.getRange(data)
             .subscribe(function (dataset) {

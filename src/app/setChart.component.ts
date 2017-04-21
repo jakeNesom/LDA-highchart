@@ -483,11 +483,11 @@ private setNodeLabels(incomingData:any) {
   }
 
   public sendPost() {
-      let data = {
-        filter : {
-        startTime : "15:00",
-        stopTime : "15:45"
-        },
+      let data ={
+        "data": {
+        "startTime" : "15:00",
+        "stopTime" : "15:45"
+        }
       };
 
       this.loggerService.getRange(data)

@@ -47,11 +47,11 @@ var LoggerService = (function () {
     };
     // POST version
     LoggerService.prototype.getRange = function (data) {
-        console.log("data beign sent " + JSON.stringify(data));
+        console.log("data being sent " + JSON.stringify(data));
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
         var url = this.filterUrl;
-        return this.http.post(url, data, options)
+        return this.http.post(url, JSON.stringify(data), options)
             .map(this.extractData)
             .catch(this.handleError);
     };
