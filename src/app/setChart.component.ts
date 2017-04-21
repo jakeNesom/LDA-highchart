@@ -492,10 +492,11 @@ private setNodeLabels(incomingData:any) {
 
       this.loggerService.getRange(data)
       .subscribe( function (dataset) { 
-                  console.log(JSON.stringify(this.filterSet) );
+                  
                   console.log("send post fired");
-                  return this.filterSet = dataset},
+                  return this.filterSet = dataset
+                },
                   error => console.log(error) );
-    }
+  }
   
 }

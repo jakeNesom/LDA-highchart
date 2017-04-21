@@ -346,7 +346,6 @@ var SetChart = (function () {
         };
         this.loggerService.getRange(data)
             .subscribe(function (dataset) {
-            console.log(JSON.stringify(this.filterSet));
             console.log("send post fired");
             return this.filterSet = dataset;
         }, function (error) { return console.log(error); });
